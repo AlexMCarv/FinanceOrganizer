@@ -3,12 +3,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileSelect 
 {
 	private static Component parentComponent = null;
 	private static File file = null;
 	private static final JFileChooser fileChoosed = new JFileChooser();
+	private static final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			"CSV File", "csv");
+	
 	
 	public FileSelect (Component parent) 
 	{
@@ -48,6 +52,7 @@ public class FileSelect
 	 */
 	private static boolean openDialog()
 	{
+		fileChoosed.setFileFilter(filter);
 		//Opens the Open File dialog box, and return either true if file was selected or false if error or dismissed
 		int fileChoosedStatus = fileChoosed.showOpenDialog(parentComponent);
 				
