@@ -16,7 +16,7 @@ public class ProgramGUI extends Application {
 		myLine.setStroke(Color.BISQUE);
 		
 		Group root = new Group(hello, question, myLine);
-		Scene scene = new Scene(root, 300,300, Color.LIGHTGREEN);
+		Scene scene = new Scene(root, 300,300, Color.RED);
 		
 		primaryStage.setTitle("Finance Organizer");
 		primaryStage.setScene(scene);
