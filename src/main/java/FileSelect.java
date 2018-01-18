@@ -1,72 +1,53 @@
-import java.awt.Component;
+import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javafx.stage.Stage;
+import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+// Uses JavaFX to display a new window prompting the user to select a file to load. 
 
-public class FileSelect 
-{
-	private static File file = null;
-	private static final FileChooser fileChooser = new FileChooser();
-	private static final ExtensionFilter filter = new ExtensionFilter(
-			"CSV File", "csv");
-	private static Stage stageComponent;
-	
-	public FileSelect () 
-	{
-		setStageComponent(null);
+public class FileSelect extends Application {
+	private File file;
+	private Stage stage;
+	private Desktop desktop = Desktop.getDesktop();
+	private FileChooser fileChooser = new FileChooser();
+	private ExtensionFilter filter = new ExtensionFilter("CSV File", "csv");
 		
+	// Constructor methods
+	public FileSelect () {
+		this.stage = null;
 	}
-	public FileSelect (Stage stage) 
-	{
-		setStageComponent(stage);
-	}
-	
-	public Stage getStageComponent() 
-	{
-		return stageComponent;
+
+	public FileSelect (Stage stage) {
+		this.stage = stage;
 	}
 	
-	public void setStageComponent(Stage stage) 
-	{
-		this.stageComponent = stage;
+	// Get methods
+	public Stage getStageComponent() {
+		return stage;
+	}
+
+	public void start(Stage stage) throws Exception {
+		fileChooser.setTitle("Finance Organizer");
+		file = fileChooser.showOpenDialog(stage);
+		
+		if (file != null) {
+			openFile(file);
+		}
+		
+		FileImporter parser = new FileImporter(file);
+		parser.parseFile();
 	}
 	
 	//This function returns the file reference, after testing if a file was selected. Returns null otherwise. 
-	public static File getFile(Stage stage) throws FileNotFoundException
-	{
-		if (openDialog(stage))
-		{
-			return file;
+	public void openFile(File file) {
+		try {
+			desktop.open(file);
+		} catch (IOException e) {
+			
 		}
-		
-		else
-		{
-			System.out.println("File was not selected");
-			throw new FileNotFoundException();
-		}
-	}
-	
-	/* This function displays the Open File dialog box and return the file reference 
-	 * if selected by the user, or null if dismissed or error
-	 */
-	private static boolean openDialog(Stage stage)
-	{
-		fileChooser.getExtensionFilters().addAll(filter);
-		//Opens the Open File dialog box, and return either true if file was selected or false if error or dismissed
-		File selectedFile = fileChooser.showOpenDialog(stage);
-				
-		if (selectedFile != null) 
-		{
-			return true;
-        } 
-		
-		else 
-		{
-            return false;
-        }
 	}
 }
