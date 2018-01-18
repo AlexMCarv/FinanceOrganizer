@@ -2,40 +2,43 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
 
 public class FileSelect 
 {
-	private static Component parentComponent = null;
 	private static File file = null;
-	private static final JFileChooser fileChoosed = new JFileChooser();
-	private static final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+	private static final FileChooser fileChooser = new FileChooser();
+	private static final ExtensionFilter filter = new ExtensionFilter(
 			"CSV File", "csv");
+	private static Stage stageComponent;
 	
-	
-	public FileSelect (Component parent) 
-	{
-		setParentComponent(parent);
-	}
 	public FileSelect () 
 	{
-		setParentComponent(null);
+		setStageComponent(null);
+		
+	}
+	public FileSelect (Stage stage) 
+	{
+		setStageComponent(stage);
 	}
 	
-	public Component getParentComponent() 
+	public Stage getStageComponent() 
 	{
-		return parentComponent;
+		return stageComponent;
 	}
-	public void setParentComponent(Component parent) 
+	
+	public void setStageComponent(Stage stage) 
 	{
-		this.parentComponent = parent;
+		this.stageComponent = stage;
 	}
-
+	
 	//This function returns the file reference, after testing if a file was selected. Returns null otherwise. 
-	public static File getFile() throws FileNotFoundException
+	public static File getFile(Stage stage) throws FileNotFoundException
 	{
-		if (openDialog())
+		if (openDialog(stage))
 		{
 			return file;
 		}
@@ -50,15 +53,14 @@ public class FileSelect
 	/* This function displays the Open File dialog box and return the file reference 
 	 * if selected by the user, or null if dismissed or error
 	 */
-	private static boolean openDialog()
+	private static boolean openDialog(Stage stage)
 	{
-		fileChoosed.setFileFilter(filter);
+		fileChooser.getExtensionFilters().addAll(filter);
 		//Opens the Open File dialog box, and return either true if file was selected or false if error or dismissed
-		int fileChoosedStatus = fileChoosed.showOpenDialog(parentComponent);
+		File selectedFile = fileChooser.showOpenDialog(stage);
 				
-		if (fileChoosedStatus == JFileChooser.APPROVE_OPTION) 
+		if (selectedFile != null) 
 		{
-			file = fileChoosed.getSelectedFile();
 			return true;
         } 
 		

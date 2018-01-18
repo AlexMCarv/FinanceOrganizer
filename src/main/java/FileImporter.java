@@ -5,26 +5,32 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import javax.swing.JFileChooser;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class FileImporter 
+//https://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
+//https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
+//https://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
+public class FileImporter extends Application
 {
 	public FileImporter() {};
 	
-	public static void PrintToScreen()
+	public void PrintToScreen()
 	{
 		File testFile = new File("");
 	    String currentPath = testFile.getAbsolutePath();
 	    System.out.println("current path is: " + currentPath);
 	}
 	
-	public static void Run() 
+	public void start(Stage stage) throws Exception
 	{
 		CSVReader reader = null;
 		
 		try 
 	    {
-			File csvFile = FileSelect.getFile();
+			File csvFile = FileSelect.getFile(stage);
 			reader = new CSVReader(new FileReader(csvFile));
 	        List<String[]> importedFile = reader.readAll();
 	    	for (String[] line : importedFile)
@@ -44,17 +50,16 @@ public class FileImporter
 	    }
     }
 	
-	public static String FileChooser()
+	public String FileChooser()
 	{
 		//This is a placeholder for the main window. Change null for the main window component.
-		Component parentComponent = null;
-		final JFileChooser fileChooser = new JFileChooser();
-		int returnVal = fileChooser.showOpenDialog(parentComponent);
+		Stage stage = null;
+		final FileChooser fileChooser = new FileChooser();
+		File returnVal = fileChooser.showOpenDialog(stage);
 		
-		if (returnVal == JFileChooser.APPROVE_OPTION) 
+		if (returnVal != null) 
 		{
-            File file = fileChooser.getSelectedFile();
-            return file.getAbsolutePath();
+            return returnVal.getAbsolutePath();
         } 
 		
 		else 
