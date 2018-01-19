@@ -4,11 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-//https://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
-//https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
-//https://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
-
-// 
+// This class holds the file reference and is responsible for parsing the data of a given CSV file
 public class FileImporter
 {
 	private File file;
@@ -24,7 +20,9 @@ public class FileImporter
 	    System.out.println("current path is: " + currentPath);
 	}
 	
-	public void parseFile() throws Exception
+	// This method parses the CSV file and returns the each individual data separating first 
+	// the lines in a String array and each data in a String 
+	public List<String[]> parseFile() throws Exception
 	{
 		CSVReader reader = null;
 		
@@ -32,20 +30,15 @@ public class FileImporter
 	    {
 			reader = new CSVReader(new FileReader(file));
 	        List<String[]> importedFile = reader.readAll();
-	    	for (String[] line : importedFile)
-	    	{
-	    		for (int i = 0; i < line.length; i++) 
-	    		{
-	    			System.out.println(line[i] + " ");
-	    		}
-	    		System.out.println("");
-	    	}
+	        reader.close();
+	        return importedFile;
 	    } 
 	    
 	    catch (IOException e) 
 	    {
 	    	System.out.println("opa entrou no catch");
 	    	e.printStackTrace();
+	    	return null;
 	    }
     }
 }

@@ -1,17 +1,20 @@
 
-import java.util.Date;
+import java.time.LocalDate;
 
+// This class holds the data for each transaction
 public class Transaction 
 {
-	private Date date = null;
+	private LocalDate date = null;
 	private String description = "";
 	private double value = 0.0d;
+	private String type = "";
 	
-	public Transaction (Date transactionDate, String transactionDescription, double transactionValue) 
+	public Transaction (LocalDate date,  double value, String type, String description) 
 	{
-		setDate(transactionDate);
-		setDescription(transactionDescription);
-		setValue(transactionValue);
+		setDate(date);
+		setValue(value);
+		setDescription(description);
+		setType(type);
 	}
 
 	public double getValue() {
@@ -27,12 +30,22 @@ public class Transaction
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Date getDate() {
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	
+	public String toString() {
+		return ("Desc:" + description + " Date:" + date + " Value: " + value + " Type:" + type);
+	}
 }

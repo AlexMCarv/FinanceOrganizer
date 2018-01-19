@@ -1,20 +1,20 @@
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-// Uses JavaFX to display a new window prompting the user to select a file to load. 
-
+// Uses JavaFX to display a new window prompting the user to select a file to load.
+// Create a class for parsing?
 public class FileSelect extends Application {
 	private File file;
 	private Stage stage;
-	private Desktop desktop = Desktop.getDesktop();
 	private FileChooser fileChooser = new FileChooser();
-	private ExtensionFilter filter = new ExtensionFilter("CSV File", "csv");
+	private ExtensionFilter filter = new ExtensionFilter("CSV File", "csv"); // implement file filter
 		
 	// Constructor methods
 	public FileSelect () {
@@ -34,20 +34,26 @@ public class FileSelect extends Application {
 		fileChooser.setTitle("Finance Organizer");
 		file = fileChooser.showOpenDialog(stage);
 		
-		if (file != null) {
-			openFile(file);
-		}
-		
+		// Parsing the data
 		FileImporter parser = new FileImporter(file);
-		parser.parseFile();
-	}
-	
-	//This function returns the file reference, after testing if a file was selected. Returns null otherwise. 
-	public void openFile(File file) {
-		try {
-			desktop.open(file);
-		} catch (IOException e) {
-			
+		List<String[]> importedData = parser.parseFile(); 
+		List<Transaction> transactionData = new ArrayList<Transaction>();
+		
+		// Creating transaction objects
+		for (String[] line : importedData) 
+		{
+    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
+    		LocalDate date = LocalDate.parse(line[0], formatter);
+    		double value = Double.parseDouble(line[1]);
+    		String type = line[3];
+    		String description = line[4];
+    		Transaction transaction = new Transaction(date, value, type, description);
+    		transactionData.add(transaction);
+    	}
+		
+		// Printing result for DEBUG
+		for (int i = 0; i < transactionData.size(); i++) {
+			System.out.println(transactionData.get(i));
 		}
 	}
 }
