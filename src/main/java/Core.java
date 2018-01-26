@@ -1,3 +1,5 @@
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,16 +9,22 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Core extends Application
-{
+public class Core extends Application {
 	public void start(final Stage stage) throws Exception {
 		Button openButton = new Button("Import CSV File");
 		
 		openButton.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
 				FileSelect fileSelector = new FileSelect(stage);
+				
 				try {
 					fileSelector.start(stage);
+					FileImporter parser = new FileImporter(fileSelector.getFile());
+					List<String[]> importedData = parser.parseFile();
+					TransactionHandler tHandler = new TransactionHandler(importedData);
+					tHandler.createTransaction();
+					tHandler.printTransaction();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -36,5 +44,4 @@ public class Core extends Application
 		//FileImporter.launch();
 		//ProgramGUI.main(null);
 	}
-
 }

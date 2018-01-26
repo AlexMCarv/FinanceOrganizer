@@ -26,34 +26,12 @@ public class FileSelect extends Application {
 	}
 	
 	// Get methods
-	public Stage getStageComponent() {
-		return stage;
-	}
+	public Stage getStageComponent() {return stage;}
+	public File getFile() {return file;}
+	
 
 	public void start(Stage stage) throws Exception {
 		fileChooser.setTitle("Finance Organizer");
 		file = fileChooser.showOpenDialog(stage);
-		
-		// Parsing the data
-		FileImporter parser = new FileImporter(file);
-		List<String[]> importedData = parser.parseFile(); 
-		List<Transaction> transactionData = new ArrayList<Transaction>();
-		
-		// Creating transaction objects
-		for (String[] line : importedData) 
-		{
-    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
-    		LocalDate date = LocalDate.parse(line[0], formatter);
-    		double value = Double.parseDouble(line[1]);
-    		String type = line[3];
-    		String description = line[4];
-    		Transaction transaction = new Transaction(date, value, type, description);
-    		transactionData.add(transaction);
-    	}
-		
-		// Printing result for DEBUG
-		for (int i = 0; i < transactionData.size(); i++) {
-			System.out.println(transactionData.get(i));
-		}
 	}
 }
