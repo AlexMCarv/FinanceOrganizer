@@ -1,10 +1,9 @@
-import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -13,6 +12,7 @@ public class Core extends Application {
 	
 	public void start(final Stage stage) throws Exception {
 		Button openButton = new Button("Import CSV File");
+		
 		Button saveButton = new Button("Save to CSV File");
 		
 		openButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -24,7 +24,6 @@ public class Core extends Application {
 					tHandler = new TransactionHandler();
 					tHandler.parseFile(fileSelector.getFile());
 					tHandler.printTransaction();
-					tHandler.saveTransaction("teste.csv");
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,9 +31,21 @@ public class Core extends Application {
 			}
 		});
 
+		saveButton.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event) {
+			
+				try {
+					tHandler.saveTransaction("teste.csv");
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
-		Group root = new Group(openButton);
+		HBox root = new HBox(2);
 		Scene scene = new Scene(root, 300,300, Color.RED);
+		root.getChildren().addAll(openButton, saveButton);
 		
 		stage.setTitle("Finance Organizer");
 		stage.setScene(scene);

@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 
 // This class holds the data for each transaction
