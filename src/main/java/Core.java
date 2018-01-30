@@ -1,5 +1,4 @@
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,8 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Core extends Application {
+	private TransactionHandler tHandler;
+	
 	public void start(final Stage stage) throws Exception {
 		Button openButton = new Button("Import CSV File");
+		Button saveButton = new Button("Save to CSV File");
 		
 		openButton.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
@@ -19,17 +21,17 @@ public class Core extends Application {
 				
 				try {
 					fileSelector.start(stage);
-					FileImporter parser = new FileImporter(fileSelector.getFile());
-					List<String[]> importedData = parser.parseFile();
-					TransactionHandler tHandler = new TransactionHandler(importedData);
-					tHandler.createTransaction();
+					tHandler = new TransactionHandler();
+					tHandler.parseFile(fileSelector.getFile());
 					tHandler.printTransaction();
+					tHandler.saveTransaction("teste.csv");
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}});
+			}
+		});
+
 		
 		Group root = new Group(openButton);
 		Scene scene = new Scene(root, 300,300, Color.RED);
@@ -41,7 +43,6 @@ public class Core extends Application {
 	
 	public static void main(String[] args) {
 		Application.launch(args);
-		//FileImporter.launch();
 		//ProgramGUI.main(null);
 	}
 }

@@ -1,15 +1,10 @@
 import java.io.File;
-import java.time.*;
-import java.time.format.*;
-import java.util.*;
-
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 // Uses JavaFX to display a new window prompting the user to select a file to load.
-// Create a class for parsing?
 public class FileSelect extends Application {
 	private File file;
 	private Stage stage;
@@ -31,7 +26,7 @@ public class FileSelect extends Application {
 	
 
 	public void start(Stage stage) throws Exception {
-		fileChooser.setTitle("Finance Organizer");
+		fileChooser.setTitle("Select File");
 		file = fileChooser.showOpenDialog(stage);
 	}
 }
