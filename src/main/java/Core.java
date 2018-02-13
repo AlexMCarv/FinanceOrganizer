@@ -35,7 +35,7 @@ public class Core extends Application {
 			public void handle(ActionEvent event) {
 			
 				try {
-					tHandler.saveTransaction("teste.csv");
+					tHandler.saveTransaction();
 					
 				} catch (Exception e) {
 					e.printStackTrace();

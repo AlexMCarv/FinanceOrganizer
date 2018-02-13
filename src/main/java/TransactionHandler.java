@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.opencsv.CSVWriter;
 public class TransactionHandler {
 	private List<String[]> rawData;
 	private List<Transaction> data = new ArrayList<Transaction>();
+	YearMonth date = YearMonth.now();
 	
 	public List<Transaction> getTransaction() {return data;}
 	
@@ -52,11 +54,15 @@ public class TransactionHandler {
     	}
 	}
 	
-	public void saveTransaction(String fileName) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+	public void saveTransaction() throws IOException {
 		for (int i = 0; i < data.size(); i++) {
+			int year = data.get(i).getDate().getYear();
+ 			int month = data.get(i).getDate().getMonthValue();
+ 			String fileName = String.format("%d-%d.csv", year, month); 
+ 			CSVWriter writer = new CSVWriter(new FileWriter(fileName , true));
 			writer.writeNext(data.get(i).getFormatedData());
+			writer.close();
 		}
-		writer.close();
+		
 	}
 }
