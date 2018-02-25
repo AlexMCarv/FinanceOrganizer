@@ -8,48 +8,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Core extends Application {
-	private TransactionHandler tHandler;
 	
-	public void start(final Stage stage) throws Exception {
-		Button openButton = new Button("Import CSV File");
-		
-		Button saveButton = new Button("Save to CSV File");
-		
-		openButton.setOnAction(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event) {
-				FileSelect fileSelector = new FileSelect(stage);
-				
-				try {
-					fileSelector.start(stage);
-					tHandler = new TransactionHandler();
-					tHandler.parseFile(fileSelector.getFile());
-					tHandler.printTransaction();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void start(Stage primaryStage) throws Exception {
 
-		saveButton.setOnAction(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event) {
-			
-				try {
-					tHandler.saveTransaction();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		HBox root = new HBox(2);
-		Scene scene = new Scene(root, 300,300, Color.RED);
-		root.getChildren().addAll(openButton, saveButton);
-		
-		stage.setTitle("Finance Organizer");
-		stage.setScene(scene);
-		stage.show();
+		Scene scene = new Scene(new ApplicationGUI(primaryStage), 300,300, Color.RED);
+		primaryStage.setTitle("Finance Organizer");
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 	
 	public static void main(String[] args) {

@@ -15,6 +15,8 @@ public class TransactionHandler {
 	private List<String[]> rawData;
 	private List<Transaction> data = new ArrayList<Transaction>();
 	YearMonth date = YearMonth.now();
+	List<String> uniqueDate = new ArrayList<String>();
+	
 	
 	public List<Transaction> getTransaction() {return data;}
 	
@@ -58,11 +60,21 @@ public class TransactionHandler {
 		for (int i = 0; i < data.size(); i++) {
 			int year = data.get(i).getDate().getYear();
  			int month = data.get(i).getDate().getMonthValue();
+ 			getUniqueDate(year, month);
  			String fileName = String.format("%d-%d.csv", year, month); 
+ 			//Check if data is already inserted in the file
+ 			//if not append
  			CSVWriter writer = new CSVWriter(new FileWriter(fileName , true));
 			writer.writeNext(data.get(i).getFormatedData());
 			writer.close();
 		}
 		
+	}
+	
+	public void getUniqueDate(int year, int month) {
+		String date = String.format("%d-%d.csv", year, month);
+		if (!uniqueDate.contains(date)){
+			uniqueDate.add(date);
+		}
 	}
 }
