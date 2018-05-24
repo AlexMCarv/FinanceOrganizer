@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 // This class holds the data for each transaction
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
 	private LocalDate date;
 	private String description;
 	private double value;
@@ -39,6 +39,10 @@ public class Transaction {
 	public boolean equals(Transaction trans) {
 		return ((this.date == trans.date) && (this.description == trans.description) && 
 				(this.value == trans.value) && (this.type == trans.type));
+	}
+	
+	public int compareTo(Transaction other) {
+		return this.getDate().compareTo(other.getDate());
 	}
 	
 	public String[] getFormatedData() {
