@@ -1,7 +1,9 @@
+package core;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 public class Core extends Application {
 	
@@ -15,6 +17,6 @@ public class Core extends Application {
 	
 	public static void main(String[] args) {
 		Application.launch(args);
-		//ProgramGUI.main(null);
+		
 	}
 }

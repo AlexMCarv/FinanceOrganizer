@@ -1,3 +1,4 @@
+package core;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,20 +12,28 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import datatype.Transaction;
+
 public class TransactionHandler {
-	private List<String[]> rawData;
-	private List<Transaction> data = new ArrayList<Transaction>();
-	YearMonth date = YearMonth.now();
-	List<String> uniqueDate = new ArrayList<String>();
+	protected List<String[]> rawData;
+	protected List<Transaction> data = new ArrayList<Transaction>();
+	private YearMonth date = YearMonth.now();
+	private List<String> uniqueDate = new ArrayList<String>();
 	
 	
-	public List<Transaction> getTransaction() {return data;}
+	public List<Transaction> getTransaction() {
+		return data;
+	}
+	
+	public List<String[]> getRawData() {
+		return rawData;
+	}
+	
 	
 	public void printTransaction() {
 		// Printing result for DEBUG
-		for (int i = 0; i < data.size(); i++) {
+		for (int i = 0; i < data.size(); i++)
 			System.out.println(data.get(i));
-		}
 	}
 
 	public void parseFile(File file) throws Exception {
@@ -49,9 +58,10 @@ public class TransactionHandler {
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
     		LocalDate date = LocalDate.parse(line[0], formatter);
     		double value = Double.parseDouble(line[1]);
-    		String type = line[3];
+    		char type = line[3].charAt(0);
     		String description = line[4];
-    		Transaction transaction = new Transaction(date, value, type, description);
+    		String category = "";
+    		Transaction transaction = new Transaction(date, value, type, description, category);
     		data.add(transaction);
     	}
 	}

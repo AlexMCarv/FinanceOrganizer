@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<SplitPane dividerPositions="0.11702986279257466" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="763.0" prefWidth="193.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="758.0" prefWidth="1227.0">
+         <children>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="600.0" prefWidth="1250.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <TableView fx:id="tblYearSummary" layoutY="50.0" prefHeight="532.0" prefWidth="1150.0">
+                    <columns>
+                      <TableColumn fx:id="tbcCode" prefWidth="48.0" text="Code" />
+                      <TableColumn fx:id="tbcCategory" prefWidth="194.0" text="Category" />
+                        <TableColumn fx:id="tbcEValue" prefWidth="61.0" text="Expected Value" />
+                        <TableColumn fx:id="tbcMonths" prefWidth="642.0" style="-fx-alignment: CENTER-RIGHT;" text="Months">
+                           <columns>
+                              <TableColumn fx:id="tbcJan" prefWidth="60.0" style="-fx-alignment: CENTER-RIGHT;" text="Jan" />
+                              <TableColumn fx:id="tbcFeb" prefWidth="60.0" text="Feb" />
+                              <TableColumn fx:id="tbcMar" prefWidth="60.0" text="Mar" />
+                              <TableColumn fx:id="tbcApr" prefWidth="60.0" text="Apr" />
+                              <TableColumn fx:id="tbcMay" prefWidth="60.0" text="May" />
+                              <TableColumn fx:id="tbcJun" prefWidth="60.0" text="Jun" />
+                              <TableColumn fx:id="tbcJul" prefWidth="60.0" text="Jul" />
+                              <TableColumn fx:id="tbcAug" prefWidth="60.0" text="Aug" />
+                              <TableColumn fx:id="tbcSep" prefWidth="60.0" text="Sep" />
+                              <TableColumn fx:id="tbcOct" prefWidth="60.0" text="Oct" />
+                              <TableColumn fx:id="tbcNov" prefWidth="60.0" text="Nov" />
+                              <TableColumn fx:id="tbcDec" prefWidth="60.0" text="Dec" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="tbcTotal" prefWidth="110.0" text="Total" />
+                    </columns>
+                  </TableView>
+                  <Label layoutY="18.0" text="Yearly Summary" />
+                  <Label fx:id="lblYear" layoutX="94.0" layoutY="18.0" text="2018" />
+                  <Label layoutX="981.0" layoutY="18.0" text="Change Year" />
+                  <ComboBox fx:id="cmbChangeYear" layoutX="1056.0" layoutY="14.0" prefHeight="25.0" prefWidth="94.0" />
+               </children>
+            </Pane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
