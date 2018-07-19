@@ -20,6 +20,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class YearlySummaryController implements javafx.fxml.Initializable{
@@ -31,6 +33,8 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 	private Label lblYear;
 	@FXML
 	private PieChart graph;
+	@FXML
+	private TreeView<String> tblSideMenu;
 	@FXML
 	private TableView<CategorySummary> tblYearSummary;
 	@FXML
@@ -71,7 +75,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		
 		cmbChangeYear.setItems(SQLQueries.listYears());
 		cmbChangeYear.setOnAction(this::updateTable);
-		
+		createSideMenu();
 		updateTable();
 				
 		tbcCode.setCellValueFactory(
@@ -94,9 +98,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		// with the TableColumn such as getting the CellFactory back, the variable col is not used
 		// on the right side of the lambda expression.
 		tbcJan.setCellFactory(col -> new DoubleTableCell());
-		System.out.println(tbcJan.getCellFactory());
-		
-		
+
 		tbcFeb.setCellValueFactory(
 			    new PropertyValueFactory<CategorySummary, Double>("feb"));
 		tbcFeb.setCellFactory(col -> new DoubleTableCell());
@@ -191,4 +193,30 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		}
 	}
 	
+	// Create
+	private void createSideMenu() {
+		
+		// Root Item
+		TreeItem<String> rootItem = new TreeItem<>("Menu");
+		rootItem.setExpanded(true);
+		
+		// Reports
+		TreeItem<String> itemReport = new TreeItem<>("Reports");
+		TreeItem<String> itemYearly = new TreeItem<>("Yearly");
+		TreeItem<String> itemMonthly = new TreeItem<>("Monthly");
+		itemReport.getChildren().addAll(itemYearly, itemMonthly);
+	      
+		// Transactions
+		TreeItem<String> itemTransactions = new TreeItem<>("Transactions");
+		TreeItem<String> itemByCategory = new TreeItem<>("By Category");
+		TreeItem<String> itemByDate = new TreeItem<>("By Date");
+		itemTransactions.getChildren().addAll(itemByCategory, itemByDate);
+		
+		// Import
+		TreeItem<String> itemImport = new TreeItem<>("Import");
+		
+		rootItem.getChildren().addAll(itemReport, itemTransactions, itemImport);
+		tblSideMenu.setRoot(rootItem);
+		tblSideMenu.setShowRoot(false);
+	}
 }

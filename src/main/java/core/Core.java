@@ -11,6 +11,7 @@ public class Core extends Application {
 
 		Scene scene = new Scene(new ApplicationGUI(primaryStage), 300,300, Color.RED);
 		primaryStage.setTitle("Finance Organizer");
+		scene.getStylesheets().add("application.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

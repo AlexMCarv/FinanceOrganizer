@@ -128,6 +128,7 @@ public class ApplicationGUI extends VBox{
 			loader.setController(new YearlySummaryController());
 			Scene scene = new Scene(loader.load(),1400,760);
 			Stage newStage = new Stage();
+			scene.getStylesheets().add("application.css");
 			
 			newStage.setScene(scene);
 			//stage.sizeToScene();
