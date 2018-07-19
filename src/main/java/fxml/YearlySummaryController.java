@@ -1,9 +1,11 @@
 package fxml;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import core.ApplicationGUI;
 import database.SQLQueries;
 import datatype.*;
 import javafx.util.Callback;
@@ -11,6 +13,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class YearlySummaryController implements javafx.fxml.Initializable{
 
@@ -34,7 +39,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 	@FXML
 	private PieChart graph;
 	@FXML
-	private TreeView<String> tblSideMenu;
+	private TreeView<Button> tblSideMenu;
 	@FXML
 	private TableView<CategorySummary> tblYearSummary;
 	@FXML
@@ -195,28 +200,61 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 	
 	// Create
 	private void createSideMenu() {
-		
+
 		// Root Item
-		TreeItem<String> rootItem = new TreeItem<>("Menu");
+		Button menu = new Button("Menu");
+		TreeItem<Button> rootItem = new TreeItem<>(menu);
 		rootItem.setExpanded(true);
 		
 		// Reports
-		TreeItem<String> itemReport = new TreeItem<>("Reports");
-		TreeItem<String> itemYearly = new TreeItem<>("Yearly");
-		TreeItem<String> itemMonthly = new TreeItem<>("Monthly");
+		Button report = new Button("Reports");
+		TreeItem<Button> itemReport = new TreeItem<>(report);
+		Button btnReportYearly = new Button("Yearly");
+		TreeItem<Button> itemYearly = new TreeItem<>(btnReportYearly);
+		Button btnReportMonthly = new Button("Monthly");
+		TreeItem<Button> itemMonthly = new TreeItem<>(btnReportMonthly);
 		itemReport.getChildren().addAll(itemYearly, itemMonthly);
 	      
 		// Transactions
-		TreeItem<String> itemTransactions = new TreeItem<>("Transactions");
-		TreeItem<String> itemByCategory = new TreeItem<>("By Category");
-		TreeItem<String> itemByDate = new TreeItem<>("By Date");
+		Button btnTransaction = new Button("Transactions");
+		TreeItem<Button> itemTransactions = new TreeItem<>(btnTransaction);
+		Button btnTransactionCategory = new Button("By Category");
+		btnTransactionCategory.setOnAction(e -> {
+			try {
+				
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/fxml/SearchCategory.fxml"));
+				loader.setController(new SearchCategoryController());
+				Scene scene = new Scene(loader.load(),900,450);
+				Stage newStage = new Stage();
+				
+				newStage.setScene(scene);
+				//stage.sizeToScene();
+				newStage.show();
+			
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+
+		});
+		
+		TreeItem<Button> itemByCategory = new TreeItem<>(btnTransactionCategory);
+		Button btnTransactionDate = new Button("By Date");
+		TreeItem<Button> itemByDate = new TreeItem<>(btnTransactionDate);
 		itemTransactions.getChildren().addAll(itemByCategory, itemByDate);
 		
 		// Import
-		TreeItem<String> itemImport = new TreeItem<>("Import");
+		Button btnImport = new Button("Import");
+		TreeItem<Button> itemImport = new TreeItem<>(btnImport);
 		
 		rootItem.getChildren().addAll(itemReport, itemTransactions, itemImport);
 		tblSideMenu.setRoot(rootItem);
 		tblSideMenu.setShowRoot(false);
+		tblSideMenu.setCellFactory(e -> new SideMenuCell());
+				
+		
 	}
+
+
 }
