@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <SplitPane dividerPositions="0.11702986279257466" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <items>
@@ -17,9 +18,9 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="758.0" prefWidth="1227.0">
          <children>
-            <Pane layoutX="14.0" layoutY="14.0" prefHeight="600.0" prefWidth="1250.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="446.0" prefWidth="1146.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
-                  <TableView fx:id="tblYearSummary" layoutY="50.0" prefHeight="532.0" prefWidth="1150.0">
+                  <TableView fx:id="tblYearSummary" layoutY="50.0" prefHeight="383.0" prefWidth="1150.0">
                     <columns>
                       <TableColumn fx:id="tbcCode" prefWidth="48.0" text="Code" />
                       <TableColumn fx:id="tbcCategory" prefWidth="194.0" text="Category" />
@@ -43,12 +44,48 @@
                         <TableColumn fx:id="tbcTotal" prefWidth="110.0" text="Total" />
                     </columns>
                   </TableView>
-                  <Label layoutY="18.0" text="Yearly Summary" />
-                  <Label fx:id="lblYear" layoutX="94.0" layoutY="18.0" text="2018" />
+                  <Label layoutX="513.0" layoutY="6.0" text="Yearly Summary">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="lblYear" layoutX="613.0" layoutY="6.0" text="2018">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label layoutX="981.0" layoutY="18.0" text="Change Year" />
                   <ComboBox fx:id="cmbChangeYear" layoutX="1056.0" layoutY="14.0" prefHeight="25.0" prefWidth="94.0" />
+                  <Label fx:id="lblExpenses" layoutY="27.0" text="Expenses" />
                </children>
             </Pane>
+            <Pane layoutX="23.0" layoutY="508.0" prefHeight="200.0" prefWidth="1150.0">
+               <children>
+                  <TableView fx:id="tblYearSummaryDep" prefHeight="200.0" prefWidth="1150.0">
+                    <columns>
+                      <TableColumn fx:id="tbcCodeDep" prefWidth="48.0" text="Code" />
+                      <TableColumn fx:id="tbcCategoryDep" prefWidth="194.0" text="Category" />
+                        <TableColumn fx:id="tbcEValueDep" prefWidth="61.0" text="Expected Value" />
+                        <TableColumn fx:id="tbcMonthsDep" prefWidth="802.0" text="Months">
+                           <columns>
+                              <TableColumn fx:id="tbcJanDep" prefWidth="60.0" text="Jan" />
+                              <TableColumn fx:id="tbcFebDep" prefWidth="60.0" text="Feb" />
+                              <TableColumn fx:id="tbcMarDep" prefWidth="60.0" text="Mar" />
+                              <TableColumn fx:id="tbcAprDep" prefWidth="60.0" text="Apr" />
+                              <TableColumn fx:id="tbcMayDep" prefWidth="60.0" text="May" />
+                              <TableColumn fx:id="tbcJunDep" prefWidth="60.0" text="Jun" />
+                              <TableColumn fx:id="tbcJulDep" prefWidth="60.0" text="Jul" />
+                              <TableColumn fx:id="tbcAugDep" prefWidth="60.0" text="Aug" />
+                              <TableColumn fx:id="tbcSepDep" prefWidth="60.0" text="Sep" />
+                              <TableColumn fx:id="tbcOctDep" prefWidth="60.0" text="Oct" />
+                              <TableColumn fx:id="tbcNovDep" prefWidth="60.0" text="Nov" />
+                              <TableColumn fx:id="tbcDecDep" prefWidth="60.0" text="Dec" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="tbcTotalDep" prefWidth="110.0" text="Total" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+            <Label fx:id="lblDeposits" layoutX="25.0" layoutY="483.0" text="Deposits" />
          </children></AnchorPane>
   </items>
 </SplitPane>

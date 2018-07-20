@@ -140,12 +140,13 @@ public class SQLQueries {
 		
 		try {
 			conn = MySQLConnection.createConnection();
-			String query = "{call queryByCategory(?, ?, ?, ?)}";
+			String query = "{call queryByCategory(?, ?, ?, ?, ?)}";
 			stmt = conn.prepareCall(query); // intensive
 			stmt.setInt(1, month);
 			stmt.setInt(2, year);
 			stmt.setString(3, category);
-			stmt.setInt(4, 1);
+			stmt.setString(4, "Z");
+			stmt.setInt(5, -1);
 
 			rset = stmt.executeQuery();
             
@@ -176,7 +177,7 @@ public class SQLQueries {
 	} // End of showCategory() 
 	
 	
-	public static ObservableList<CategorySummary> showYearlySummmary(int year){
+	public static ObservableList<CategorySummary> showYearlySummmary(int year, char type){
 		Connection conn = null;
 		CallableStatement stmt = null;
 		CallableStatement stmt2 = null;
@@ -209,11 +210,12 @@ public class SQLQueries {
 			
 			
 			// Populating the CategorySummary list
-			query = "{call queryByCategory(?, ?, ?, ?)}";
+			query = "{call queryByCategory(?, ?, ?, ?, ?)}";
 			stmt2 = conn.prepareCall(query); // intensive
 			
 			stmt2.setInt(2, year);
-			stmt2.setInt(4, 0);
+			stmt2.setString(4, String.valueOf(type));
+			stmt2.setInt(5, 0);
 			
 			for(Category category : categoryList) {
 				stmt2.setString(3, category.getCategoryCode());
@@ -224,12 +226,13 @@ public class SQLQueries {
 					rset2 = stmt2.executeQuery();
 					rset2.next();
 					valueArray[month - 1] = rset2.getDouble(1);
-					
-					
 				}
 				
 				CategorySummary currentCategory = new CategorySummary(category, valueArray);
-				list.add(currentCategory);
+				if (currentCategory.getTotal() > 0.0001) {
+					list.add(currentCategory);
+				} 
+				
 			}
 			
 		} catch (Exception ex) {

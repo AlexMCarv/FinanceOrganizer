@@ -74,6 +74,40 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 	private TableColumn<CategorySummary, Double> tbcDec;
 	@FXML
 	private TableColumn<CategorySummary, Double> tbcTotal;
+	@FXML
+	private TableView<CategorySummary> tblYearSummaryDep;
+	@FXML
+	private TableColumn<CategorySummary, String> tbcCodeDep;
+	@FXML
+	private TableColumn<CategorySummary, String> tbcCategoryDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcEValueDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcJanDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcFebDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcMarDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcAprDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcMayDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcJunDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcJulDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcAugDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcSepDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcOctDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcNovDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcDecDep;
+	@FXML
+	private TableColumn<CategorySummary, Double> tbcTotalDep;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +116,8 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		cmbChangeYear.setOnAction(this::updateTable);
 		createSideMenu();
 		updateTable();
-				
+		
+		// Expenses Table
 		tbcCode.setCellValueFactory(
 			    new PropertyValueFactory<CategorySummary, String>("categoryCode"));
 		tbcCategory.setCellValueFactory(
@@ -151,6 +186,63 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		tbcTotal.setCellValueFactory(
 			    new PropertyValueFactory<CategorySummary, Double>("total"));
 		tbcTotal.setCellFactory(col -> new DoubleTableCell());
+		
+		// Deposits Table
+		tbcCodeDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, String>("categoryCode"));
+		tbcCategoryDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, String>("categoryName"));
+		tbcJanDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("jan"));
+		tbcJanDep.setCellFactory(col -> new DoubleTableCell());
+
+		tbcFebDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("feb"));
+		tbcFebDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcMarDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("mar"));
+		tbcMarDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcAprDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("apr"));
+		tbcAprDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcMayDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("may"));
+		tbcMayDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcJunDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("jun"));
+		tbcJunDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcJulDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("jul"));
+		tbcJulDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcAugDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("aug"));
+		tbcAugDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcSepDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("sep"));
+		tbcSepDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcOctDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("oct"));
+		tbcOctDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcNovDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("nov"));
+		tbcNovDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcDecDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("dec"));
+		tbcDecDep.setCellFactory(col -> new DoubleTableCell());
+		
+		tbcTotalDep.setCellValueFactory(
+			    new PropertyValueFactory<CategorySummary, Double>("total"));
+		tbcTotalDep.setCellFactory(col -> new DoubleTableCell());
 	}
 	
 	/**
@@ -164,7 +256,8 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		try {
 
 			// populate the list with transactions
-			tblYearSummary.setItems(SQLQueries.showYearlySummmary(year));
+			tblYearSummary.setItems(SQLQueries.showYearlySummmary(year, 'W'));
+			tblYearSummaryDep.setItems(SQLQueries.showYearlySummmary(year, 'D'));
 
 
 		} catch (IllegalArgumentException e) {
@@ -184,8 +277,8 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		try {
 
 			// populate the list with transactions
-			tblYearSummary.setItems(SQLQueries.showYearlySummmary(year));
-
+			tblYearSummary.setItems(SQLQueries.showYearlySummmary(year, 'W'));
+			tblYearSummaryDep.setItems(SQLQueries.showYearlySummmary(year, 'D'));
 
 		} catch (IllegalArgumentException e) {
 			
