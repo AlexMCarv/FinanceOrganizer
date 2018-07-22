@@ -256,5 +256,47 @@ public class SQLQueries {
 		
 	} // End of showYearlySummmary()
 	
+	public static ObservableList<SimpleTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate, String category){
+		Connection conn = null;
+		CallableStatement stmt = null;
+		ResultSet rset = null;
+		List<SimpleTransaction> list = new ArrayList<SimpleTransaction>();
+				
+		try {
+			conn = MySQLConnection.createConnection();
+			String query = "{call queryByDateRange(?, ?, ?, ?)}";
+			stmt = conn.prepareCall(query); // intensive
+			stmt.setDate(1, Date.valueOf(fromDate));
+			stmt.setDate(2, Date.valueOf(toDate));
+			stmt.setString(3, category);
+			stmt.setInt(4, 1);
+			
+			rset = stmt.executeQuery();
+            
+			while (rset.next()) {
+				list.add(new SimpleTransaction(category, rset.getString(1), rset.getDouble(2)));
+            }
+            			
+			
+		} catch (Exception ex) {
+			 System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (rset!= null)
+					rset.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+		
+		return FXCollections.observableList(list);
+		
+	} // End of showTransByDateRange() 	
 
 } // End of SQLQueries Class

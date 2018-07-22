@@ -20,7 +20,9 @@ public class SearchCategoryController implements javafx.fxml.Initializable{
 
 
 	@FXML
-	private DatePicker txbDate;
+	private DatePicker txbDateFrom;
+	@FXML
+	private DatePicker txbDateTo;
 	@FXML
 	private ComboBox<String> cmbCategory;
 	@FXML
@@ -52,9 +54,8 @@ public class SearchCategoryController implements javafx.fxml.Initializable{
 	 */
 	private void populateTransactionList(ActionEvent event) {
 		
-		LocalDate value = txbDate.getValue();
-		int month = value.getMonthValue();
-		int year = value.getYear();
+		LocalDate fromDate = txbDateFrom.getValue();
+		LocalDate toDate = txbDateTo.getValue();
 		String category = "";
 		
 		try {
@@ -68,7 +69,7 @@ public class SearchCategoryController implements javafx.fxml.Initializable{
 		try {
 
 			// populate the list with transactions
-			tblTransaction.setItems(SQLQueries.showTransaction(month, year, category));
+			tblTransaction.setItems(SQLQueries.showTransByDateRange(fromDate, toDate, category));
 
 
 		} catch (IllegalArgumentException e) {
