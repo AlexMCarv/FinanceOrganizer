@@ -228,7 +228,7 @@ public class SQLQueries {
 					valueArray[month - 1] = rset2.getDouble(1);
 				}
 				
-				CategorySummary currentCategory = new CategorySummary(category, valueArray);
+				CategorySummary currentCategory = new CategorySummary(category, year, valueArray);
 				if (currentCategory.getTotal() > 0.0001) {
 					list.add(currentCategory);
 				} 
@@ -300,7 +300,7 @@ public class SQLQueries {
 	} // End of showTransByCatAndDate()
 	
 	
-	public static ObservableList<DetailedTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate){
+	public static ObservableList<DetailedTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate, String category){
 		Connection conn = null;
 		CallableStatement stmt = null;
 		ResultSet rset = null;
@@ -313,13 +313,19 @@ public class SQLQueries {
 			stmt.setDate(1, Date.valueOf(fromDate));
 			stmt.setDate(2, Date.valueOf(toDate));
 			//The category here is irrelevant, as the call will return all categories
-			stmt.setString(3, ""); 
-			stmt.setInt(4, 0);
+			stmt.setString(3, category);
+			
+			if (category == "") {
+				stmt.setInt(4, 0);
+			} else {
+				stmt.setInt(4, -1);
+			}
+						
 			
 			rset = stmt.executeQuery();
 			
 			while (rset.next()) {
-				list.add(new DetailedTransaction(rset.getDate(1), rset.getString(2), 
+				list.add(new DetailedTransaction(rset.getDate(1).toLocalDate(), rset.getString(2), 
 						rset.getString(3), rset.getDouble(4), rset.getString(5).charAt(0)));
             }
             			

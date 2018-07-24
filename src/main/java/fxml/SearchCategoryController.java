@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SearchCategoryController implements javafx.fxml.Initializable{
 
-
 	@FXML
 	private DatePicker txbDateFrom;
 	@FXML
@@ -38,9 +37,10 @@ public class SearchCategoryController implements javafx.fxml.Initializable{
 	@FXML
 	private TableColumn<SimpleTransaction, Double> tbcValue;
 	
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+			
 		btnSearch.setOnAction(this::populateTransactionList);
 		cmbCategory.setItems(SQLQueries.showCategory());
 		tbcDescription.setCellValueFactory(

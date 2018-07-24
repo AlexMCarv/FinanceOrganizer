@@ -2,6 +2,7 @@ package datatype;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
+import javafx.scene.input.MouseEvent;
 
 public class DoubleTableCell extends TableCell<CategorySummary,Double>{
 
@@ -15,5 +16,6 @@ public class DoubleTableCell extends TableCell<CategorySummary,Double>{
 		}
 		setAlignment(Pos.CENTER_RIGHT); //temporary solution implement in css later
 	}
+	
 
 }

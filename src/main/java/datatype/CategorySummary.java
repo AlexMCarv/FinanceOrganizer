@@ -24,12 +24,14 @@ public class CategorySummary {
 	private SimpleDoubleProperty nov;
 	private SimpleDoubleProperty dec;
 	private SimpleDoubleProperty total;
+	private int year;
 	
 	
-	public CategorySummary(Category category, double[] months){
+	public CategorySummary(Category category, int year, double[] months){
 		this.category = category;
+		this.year = year;
 		this.months = months;
-		
+			
 		categoryCode = new SimpleStringProperty(category.getCategoryCode());
 		categoryName = new SimpleStringProperty(category.getCategoryName());
 
@@ -57,6 +59,10 @@ public class CategorySummary {
 		return months[month - 1];
 	}
 	
+	public int getYear() {
+		return year;
+	}
+		
 	
 	public double getSum() {
 		double sum = 0;
@@ -85,6 +91,5 @@ public class CategorySummary {
 	public double getNov() {return nov.get();}
 	public double getDec() {return dec.get();}
 	public double getTotal() {return total.get();}
-	
-	
+		
 }

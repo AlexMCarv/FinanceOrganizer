@@ -8,19 +8,19 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class DetailedTransaction extends SimpleTransaction{
 	
-	private ObjectProperty<Date> date;
+	private ObjectProperty<LocalDate> date;
 	private char type;
 
-	public DetailedTransaction(Date date, String category, String description, double value, char type) {
+	public DetailedTransaction(LocalDate date, String category, String description, double value, char type) {
 		super(category, description, value);
 		this.date = new SimpleObjectProperty<>(date);
 		this.type = type;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date.get();
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date.set(date);
 	}
 	

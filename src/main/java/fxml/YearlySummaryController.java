@@ -27,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class YearlySummaryController implements javafx.fxml.Initializable{
@@ -114,6 +115,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		
 		cmbChangeYear.setItems(SQLQueries.listYears());
 		cmbChangeYear.setOnAction(this::updateTable);
+		tblYearSummary.setOnMouseClicked(this::clickItem);
 		createSideMenu();
 		updateTable();
 		
@@ -289,6 +291,36 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 			
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void clickItem(MouseEvent event)
+	{
+	    if (event.getClickCount() == 2) //Checking double click
+	    {
+	        String categoryCode = tblYearSummary.getSelectionModel().getSelectedItem().getCategoryCode();
+	        int columnIndex = tblYearSummary.getFocusModel().getFocusedCell().getColumn();
+	        int year = tblYearSummary.getSelectionModel().getSelectedItem().getYear();
+	        int month = columnIndex - 2;
+	        
+	        try {
+				
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/fxml/SearchByDate.fxml"));
+				loader.setController(new SearchByDateController(month, year, categoryCode));
+				Scene scene = new Scene(loader.load(),900,450);
+				Stage newStage = new Stage();
+				
+				newStage.setScene(scene);
+				//stage.sizeToScene();
+				newStage.show();
+			
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+        
+	    }
 	}
 	
 	// Create

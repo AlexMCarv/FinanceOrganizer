@@ -40,7 +40,20 @@ public class SearchByDateController implements javafx.fxml.Initializable{
 	private TableColumn<DetailedTransaction, String> tbcDescription;
 	@FXML
 	private TableColumn<DetailedTransaction, Double> tbcValue;
+	private int month;
+	private int year;
+	private String category;
 	
+	
+	public SearchByDateController() {
+		
+	}
+	
+	public SearchByDateController(int month, int year, String category) {
+		this.month = month;
+		this.year = year;
+		this.category = category;
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -53,6 +66,27 @@ public class SearchByDateController implements javafx.fxml.Initializable{
 			    new PropertyValueFactory<DetailedTransaction, String>("description"));
 		tbcValue.setCellValueFactory(
 			    new PropertyValueFactory<DetailedTransaction, Double>("value"));
+		
+		if (month > 0 && year > 0 && category != null) {
+			
+			LocalDate fromDate = LocalDate.of(year, month, 1);
+			LocalDate toDate = fromDate.withDayOfMonth(fromDate.lengthOfMonth());
+			
+			try {
+
+				// populate the list with transactions
+				tblTransaction.setItems(SQLQueries.showTransByDateRange(fromDate, toDate, category));
+				txbDateFrom.setValue(fromDate);
+				txbDateTo.setValue(toDate);
+
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -66,7 +100,7 @@ public class SearchByDateController implements javafx.fxml.Initializable{
 		try {
 
 			// populate the list with transactions
-			tblTransaction.setItems(SQLQueries.showTransByDateRange(fromDate, toDate));
+			tblTransaction.setItems(SQLQueries.showTransByDateRange(fromDate, toDate, ""));
 
 
 		} catch (IllegalArgumentException e) {
