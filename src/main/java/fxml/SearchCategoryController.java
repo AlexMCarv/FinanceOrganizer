@@ -69,7 +69,7 @@ public class SearchCategoryController implements javafx.fxml.Initializable{
 		try {
 
 			// populate the list with transactions
-			tblTransaction.setItems(SQLQueries.showTransByDateRange(fromDate, toDate, category));
+			tblTransaction.setItems(SQLQueries.showTransByCatAndDate(fromDate, toDate, category));
 
 
 		} catch (IllegalArgumentException e) {

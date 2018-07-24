@@ -256,7 +256,7 @@ public class SQLQueries {
 		
 	} // End of showYearlySummmary()
 	
-	public static ObservableList<SimpleTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate, String category){
+	public static ObservableList<SimpleTransaction> showTransByCatAndDate(LocalDate fromDate, LocalDate toDate, String category){
 		Connection conn = null;
 		CallableStatement stmt = null;
 		ResultSet rset = null;
@@ -297,6 +297,52 @@ public class SQLQueries {
 		
 		return FXCollections.observableList(list);
 		
-	} // End of showTransByDateRange() 	
+	} // End of showTransByCatAndDate()
+	
+	
+	public static ObservableList<DetailedTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate){
+		Connection conn = null;
+		CallableStatement stmt = null;
+		ResultSet rset = null;
+		List<DetailedTransaction> list = new ArrayList<DetailedTransaction>();
+				
+		try {
+			conn = MySQLConnection.createConnection();
+			String query = "{call queryByDateRange(?, ?, ?, ?)}";
+			stmt = conn.prepareCall(query); // intensive
+			stmt.setDate(1, Date.valueOf(fromDate));
+			stmt.setDate(2, Date.valueOf(toDate));
+			//The category here is irrelevant, as the call will return all categories
+			stmt.setString(3, ""); 
+			stmt.setInt(4, 0);
+			
+			rset = stmt.executeQuery();
+			
+			while (rset.next()) {
+				list.add(new DetailedTransaction(rset.getDate(1), rset.getString(2), 
+						rset.getString(3), rset.getDouble(4), rset.getString(5).charAt(0)));
+            }
+            			
+			
+		} catch (Exception ex) {
+			 System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (rset!= null)
+					rset.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+		
+		return FXCollections.observableList(list);
+		
+	} // End of showTransByDateRange()
 
 } // End of SQLQueries Class

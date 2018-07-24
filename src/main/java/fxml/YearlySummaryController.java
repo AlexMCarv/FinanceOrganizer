@@ -331,10 +331,30 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 			}
 
 		});
-		
 		TreeItem<Button> itemByCategory = new TreeItem<>(btnTransactionCategory);
+		
 		Button btnTransactionDate = new Button("By Date");
+		btnTransactionDate.setOnAction(e -> {
+			try {
+				
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/fxml/SearchByDate.fxml"));
+				loader.setController(new SearchByDateController());
+				Scene scene = new Scene(loader.load(),900,450);
+				Stage newStage = new Stage();
+				
+				newStage.setScene(scene);
+				//stage.sizeToScene();
+				newStage.show();
+			
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+
+		});
 		TreeItem<Button> itemByDate = new TreeItem<>(btnTransactionDate);
+		
 		itemTransactions.getChildren().addAll(itemByCategory, itemByDate);
 		
 		// Import
