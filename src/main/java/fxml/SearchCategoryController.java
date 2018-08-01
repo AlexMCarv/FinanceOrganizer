@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import database.SQLQueries;
 import datatype.SimpleTransaction;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;

@@ -5,7 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import parsers.*;
+
 import java.io.IOException;
+import java.time.LocalDate;
 
 import fxml.*;
 
@@ -20,6 +23,7 @@ public class ApplicationGUI extends VBox{
 	Button yearSummary = new Button("Yearly Summary");
 	TransactionHandler tHandler;
 	BatchHandler bHandler;
+	BankFileParser parseBankFile;
 	
 	public ApplicationGUI(Stage stage) {
 	
@@ -29,10 +33,19 @@ public class ApplicationGUI extends VBox{
 			FileSelect fileSelector = new FileSelect(stage);
 			
 			try {
-				//fileSelector.start(stage);
+				/*//fileSelector.start(stage);
 				tHandler = new TransactionHandler();
 				tHandler.parseFile(fileSelector.getFile());
-				tHandler.printTransaction();
+				tHandler.printTransaction();*/
+				parseBankFile = new ParsePresidentChoice();
+				parseBankFile.parseFile(fileSelector.getFile());
+				parseBankFile.printTransactions();
+				System.out.println();
+				parseBankFile.printInvalidTransactions();
+				parseBankFile.updateInvalidTransaction(2, LocalDate.of(2018, 10, 07), "Superstore", 82.88, 'W');
+				parseBankFile.printTransactions();
+				System.out.println();
+				parseBankFile.printInvalidTransactions();
 				
 			} catch (Exception e) {
 				e.printStackTrace();

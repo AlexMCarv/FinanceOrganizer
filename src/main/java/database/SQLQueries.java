@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +91,53 @@ public class SQLQueries {
 		return FXCollections.observableList(list);
 		
 	} // End of showCategory() 
+	
+	
+	/**
+	 * This method queries the DB to retrieve all the accounts in the database
+	 * @return List with all accounts stored in the database 
+	 */
+	public static List<Account> retrieveAccountFromDB(){
+		Connection conn = null;
+		CallableStatement stmt = null;
+		ResultSet rset = null;
+		List<Account> list = new ArrayList<Account>(); 
+		
+		try {
+			conn = MySQLConnection.createConnection();
+			String query = "{call showAccounts()}";
+			stmt = conn.prepareCall(query); // intensive
+			rset = stmt.executeQuery();
+            
+			while (rset.next()) {
+				
+				String owner = rset.getString(1) + " " + rset.getString(2);
+				String bank = rset.getString(3);
+				int id = rset.getInt(4);
+				list.add(new Account(id, owner, bank));
+            }
+            			
+			
+		} catch (Exception ex) {
+			 System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (rset!= null)
+					rset.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+		
+		return list;
+		
+	} // End of retrieveAccountFromDB() 
 
 
 	public static ObservableList<Integer> listYears(){

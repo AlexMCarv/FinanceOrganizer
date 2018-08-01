@@ -391,6 +391,25 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		
 		// Import
 		Button btnImport = new Button("Import");
+		btnImport.setOnAction(e -> {
+			try {
+				
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/fxml/Import.fxml"));
+				loader.setController(new ImportController());
+				Scene scene = new Scene(loader.load(),900,450);
+				Stage newStage = new Stage();
+				
+				newStage.setScene(scene);
+				//stage.sizeToScene();
+				newStage.show();
+			
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+
+		});
 		TreeItem<Button> itemImport = new TreeItem<>(btnImport);
 		
 		rootItem.getChildren().addAll(itemReport, itemTransactions, itemImport);
