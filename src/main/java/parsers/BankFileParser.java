@@ -75,27 +75,36 @@ abstract public class BankFileParser {
 		return false;
 	}
 	
-	public void printTransactions() {
+	public List<String> printTransactions() {
+		List<String> list = new ArrayList<>(); 
 		System.out.println("List of valid transactions: ");
 		for (int i = 0; i < description.length; i++) {
 			if (!invalidTransactions.contains(i)) {
-				System.out.println("Transaction: " + i +
-						           ", Date: " + date[i] +
-						           ", Description: " + description[i] +
-						           ", Type: " + type[i] +
-						           ", Value: " + value[i]);
+				String transaction = "Transaction: " + i +
+									 ", Date: " + date[i] +
+									 ", Description: " + description[i] +
+									 ", Type: " + type[i] +
+									 ", Value: " + value[i];
+				list.add(transaction);
+				System.out.println(transaction);
 			} 
 		}
+		
+		return list;
 	}
 	
-	public void printInvalidTransactions() {
+	public List<String> printInvalidTransactions() {
+		List<String> list = new ArrayList<>();
 		System.out.println("List of invalid transactions: ");
 		for (int i = 0; i < description.length; i++) {
 			if (invalidTransactions.contains(i)) {
-				System.out.println("Transaction: " + i +
-						           " - " + Arrays.toString(rawData.get(i)));
+				String transaction = "Transaction: " + i +
+									 " - " + Arrays.toString(rawData.get(i));
+				System.out.println(transaction);
+				list.add(transaction);
 			} 
 		}
+		
+		return list;
 	}
-
 }

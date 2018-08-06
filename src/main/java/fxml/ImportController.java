@@ -1,9 +1,13 @@
 package fxml;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import core.FileSelect;
 import database.SQLQueries;
 import datatype.Account;
 import javafx.collections.FXCollections;
@@ -16,6 +20,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import parsers.BankFileParser;
+import parsers.ParsePresidentChoice;
+import parsers.ParseScotiaBank;
+import parsers.ParseScotiaCreditCard;
 
 public class ImportController implements javafx.fxml.Initializable {
 
@@ -24,21 +32,32 @@ public class ImportController implements javafx.fxml.Initializable {
 	@FXML
 	private ListView<String> txtAccountList;
 	@FXML
+	private ListView<String> txtValidTransactions;
+	@FXML
+	private ListView<String> txtInvalidTransactions;
+	@FXML
 	private TextField txtFileLocation;
 	@FXML
-	private Button btnImport;
+	private Button btnRead;
 	@FXML
 	private Button btnCancel;
 	@FXML
 	private Button btnSearch;
+	@FXML
+	private Button btnConfirm;
+	
+	
+	
 	
 	List<Account> accountList = new ArrayList<Account>();
 	int selectedAccountToImport;
+	BankFileParser parseBankFile;
+	File fileToImport;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		btnImport.setOnAction(this::formCloseWindow);
-		btnSearch.setOnAction(this::formCloseWindow);
+		btnRead.setOnAction(this::readFromFile);
+		btnSearch.setOnAction(this::selectFile);
 		btnCancel.setOnAction(this::formCloseWindow);
 		
 		accountList = SQLQueries.retrieveAccountFromDB();
@@ -91,6 +110,45 @@ public class ImportController implements javafx.fxml.Initializable {
 		
 	} // End of populateOwner() 
 	
+
+	/**
+	 * 
+	 */
+	private void selectFile(ActionEvent event) {
+		
+		FileSelect fileSelector = new FileSelect((Stage) btnCancel.getScene().getWindow());
+		fileToImport = fileSelector.getFile();
+		txtFileLocation.setText(fileToImport.getAbsolutePath());
+	}
+	
+	
+	/**
+	 * 
+	 */
+	private void readFromFile(ActionEvent event) {
+		String selectedAccount = txtAccountList.getSelectionModel().getSelectedItem();
+		
+		if (selectedAccount.contains("PRESIDENT")) {
+			parseBankFile = new ParsePresidentChoice();
+		} else if (selectedAccount.equals("SCOTIABANK")){
+			parseBankFile = new ParseScotiaBank();
+		} else {
+			parseBankFile = new ParseScotiaCreditCard();
+		}
+		
+		try {
+			parseBankFile.parseFile(fileToImport);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<String> validList = parseBankFile.printTransactions();
+		List<String> invalidList = parseBankFile.printInvalidTransactions();
+		
+		txtValidTransactions.setItems(FXCollections.observableList(validList));
+		txtInvalidTransactions.setItems(FXCollections.observableList(invalidList));
+	}
 	
 	/**
 	 * Closes the Import.fxml window
