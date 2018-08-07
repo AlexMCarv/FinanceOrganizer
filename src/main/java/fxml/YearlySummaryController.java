@@ -395,10 +395,11 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 			try {
 				
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("/fxml/Import.fxml"));
-				loader.setController(new ImportController());
+				loader.setLocation(getClass().getResource("/fxml/ImportMain.fxml"));
 				Scene scene = new Scene(loader.load(),1100,390);
 				Stage newStage = new Stage();
+				ImportMainController controller = loader.getController();
+				controller.init();
 				
 				newStage.setScene(scene);
 				//stage.sizeToScene();

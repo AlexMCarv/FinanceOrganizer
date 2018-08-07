@@ -17,48 +17,56 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import parsers.BankFileParser;
 import parsers.ParsePresidentChoice;
 import parsers.ParseScotiaBank;
 import parsers.ParseScotiaCreditCard;
 
-public class ImportController implements javafx.fxml.Initializable {
+public class ImportMainController {
 
-	@FXML
-	private ListView<String> txtOwnerList;
-	@FXML
-	private ListView<String> txtAccountList;
-	@FXML
-	private ListView<String> txtValidTransactions;
-	@FXML
-	private ListView<String> txtInvalidTransactions;
-	@FXML
-	private TextField txtFileLocation;
-	@FXML
-	private Button btnRead;
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private Button btnSearch;
-	@FXML
-	private Button btnConfirm;
+    @FXML private Tab tabValid;
+    
+    /* Reminder: the variable name for the injected controller is the
+     * id defined in the <fx: include fx:id="..."> appended by Controller. 
+     * Therefore for this controller, which has an id: validTrans
+     * <fx:include fx:id="validTrans" source="ImportValidTrans.fxml" />
+     * the variable name is validTransController.
+     */
+    @FXML private ImportValidTransController validTransController;
+	@FXML private ListView<String> txtOwnerList;
+	@FXML private ListView<String> txtAccountList;
+	@FXML private ListView<String> txtValidTransactions;
+	@FXML private ListView<String> txtInvalidTransactions;
+	@FXML private TextField txtFileLocation;
+	@FXML private Button btnRead;
+	@FXML private Button btnCancel;
+	@FXML private Button btnSearch;
+	@FXML private Button btnConfirm;
 	
-	
-	
-	
+	/**	Holds the list of accounts names, which are retrieved from the DB */
 	List<Account> accountList = new ArrayList<Account>();
+	
+	/**	Holds the id of the account to which the imported transactions
+		are going to be added to. */
 	int selectedAccountToImport;
+	
+	/**	Holds the file parser that allows access to all imported data */
 	BankFileParser parseBankFile;
+	
+	/**	Holds the file reference used by the parser */
 	File fileToImport;
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+
+	public void init() {
 		btnRead.setOnAction(this::readFromFile);
 		btnSearch.setOnAction(this::selectFile);
 		btnCancel.setOnAction(this::formCloseWindow);
+		tabValid.setDisable(true);
 		
 		accountList = SQLQueries.retrieveAccountFromDB();
 		txtOwnerList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -96,7 +104,10 @@ public class ImportController implements javafx.fxml.Initializable {
 	    });
 	}
 
-	
+	/**
+	 * Retrieves all the account owners in the DB
+	 * @return The ObservableList of all account owners in the DB 
+	 * */
 	public ObservableList<String> populateOwner(){
 
 		List<String> list = new ArrayList<String>(); 
@@ -112,7 +123,9 @@ public class ImportController implements javafx.fxml.Initializable {
 	
 
 	/**
-	 * 
+	 * Opens a window to allow the selection of a file to be imported.
+	 * It alters the fileToImport reference with the new file chosen, and
+	 * updates the File to Import text field.
 	 */
 	private void selectFile(ActionEvent event) {
 		
@@ -123,7 +136,10 @@ public class ImportController implements javafx.fxml.Initializable {
 	
 	
 	/**
-	 * 
+	 * Based on the selected account type, it creates the correct file parser to 
+	 * retrieve all transactions in the file. It loads modifies the parseBankFile
+	 * variable with all imported data, and it populates the valid transaction box,
+	 * and invalid transaction box.
 	 */
 	private void readFromFile(ActionEvent event) {
 		String selectedAccount = txtAccountList.getSelectionModel().getSelectedItem();
@@ -146,8 +162,9 @@ public class ImportController implements javafx.fxml.Initializable {
 		List<String> validList = parseBankFile.printTransactions();
 		List<String> invalidList = parseBankFile.printInvalidTransactions();
 		
-		txtValidTransactions.setItems(FXCollections.observableList(validList));
+		validTransController.setTxtValidTransactions(validList);
 		txtInvalidTransactions.setItems(FXCollections.observableList(invalidList));
+		tabValid.setDisable(false);
 	}
 	
 	/**
