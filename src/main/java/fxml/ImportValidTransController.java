@@ -1,9 +1,6 @@
 package fxml;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,12 +13,13 @@ public class ImportValidTransController {
 	@FXML private ListView<String> txtValidTransactions;
 	@FXML private Button btnConfirm;
 	
-	
+	/**
+	 * Populates the txtValidTransactions ListView with the transactions
+	 * that were successfully imported from the import file.
+	 */
 	public void setTxtValidTransactions(List<String> list) {
-		
 		txtValidTransactions.setItems(FXCollections.observableList(list));
 	}
 	
 	
-
 }

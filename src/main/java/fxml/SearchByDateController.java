@@ -20,26 +20,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class SearchByDateController implements javafx.fxml.Initializable{
 
 
-	@FXML
-	private DatePicker txbDateFrom;
-	@FXML
-	private DatePicker txbDateTo;
-	@FXML
-	private Button btnSearch;
-	@FXML
-	private ListView<String> txtTransList;
-	@FXML
-	private PieChart graph;
-	@FXML
-	private TableView<DetailedTransaction> tblTransaction;
-	@FXML
-	private TableColumn<DetailedTransaction, LocalDate> tbcDate;
-	@FXML
-	private TableColumn<DetailedTransaction, String> tbcCategory;
-	@FXML
-	private TableColumn<DetailedTransaction, String> tbcDescription;
-	@FXML
-	private TableColumn<DetailedTransaction, Double> tbcValue;
+	@FXML private DatePicker txbDateFrom;
+	@FXML private DatePicker txbDateTo;
+	@FXML private Button btnSearch;
+	@FXML private ListView<String> txtTransList;
+	@FXML private PieChart graph;
+	@FXML private TableView<DetailedTransaction> tblTransaction;
+	@FXML private TableColumn<DetailedTransaction, LocalDate> tbcDate;
+	@FXML private TableColumn<DetailedTransaction, String> tbcCategory;
+	@FXML private TableColumn<DetailedTransaction, String> tbcDescription;
+	@FXML private TableColumn<DetailedTransaction, Double> tbcValue;
 	private int month;
 	private int year;
 	private String category;

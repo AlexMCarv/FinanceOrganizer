@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="390.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.ImportInvalidTransController">
+   <children>
+      <Label layoutX="14.0" layoutY="11.0" text="Transactions With Invalid Data (Double-click to fix or ignore if it is invalid)" />
+      <ListView fx:id="txtInvalidTransactions" layoutX="15.0" layoutY="31.0" prefHeight="344.0" prefWidth="597.0" />
+   </children>
+</AnchorPane>

@@ -12,16 +12,11 @@ import javafx.stage.Stage;
 public class AddCategoryController implements javafx.fxml.Initializable{
 
 
-	@FXML
-	private TextField txtCode;
-	@FXML
-	private TextField txtName;
-	@FXML
-	private Button btnAdd;
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private ListView<String> txtCategoryList;
+	@FXML private TextField txtCode;
+	@FXML private TextField txtName;
+	@FXML private Button btnAdd;
+	@FXML private Button btnCancel;
+	@FXML private ListView<String> txtCategoryList;
 	
 	
 	@Override

@@ -33,82 +33,44 @@ import javafx.stage.Stage;
 public class YearlySummaryController implements javafx.fxml.Initializable{
 
 
-	@FXML
-	private ComboBox<Integer> cmbChangeYear;
-	@FXML
-	private Label lblYear;
-	@FXML
-	private PieChart graph;
-	@FXML
-	private TreeView<Button> tblSideMenu;
-	@FXML
-	private TableView<CategorySummary> tblYearSummary;
-	@FXML
-	private TableColumn<CategorySummary, String> tbcCode;
-	@FXML
-	private TableColumn<CategorySummary, String> tbcCategory;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcEValue;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJan;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcFeb;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcMar;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcApr;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcMay;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJun;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJul;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcAug;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcSep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcOct;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcNov;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcDec;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcTotal;
-	@FXML
-	private TableView<CategorySummary> tblYearSummaryDep;
-	@FXML
-	private TableColumn<CategorySummary, String> tbcCodeDep;
-	@FXML
-	private TableColumn<CategorySummary, String> tbcCategoryDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcEValueDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJanDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcFebDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcMarDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcAprDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcMayDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJunDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcJulDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcAugDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcSepDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcOctDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcNovDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcDecDep;
-	@FXML
-	private TableColumn<CategorySummary, Double> tbcTotalDep;
+	@FXML private ComboBox<Integer> cmbChangeYear;
+	@FXML private Label lblYear;
+	@FXML private PieChart graph;
+	@FXML private TreeView<Button> tblSideMenu;
+	@FXML private TableView<CategorySummary> tblYearSummary;
+	@FXML private TableColumn<CategorySummary, String> tbcCode;
+	@FXML private TableColumn<CategorySummary, String> tbcCategory;
+	@FXML private TableColumn<CategorySummary, Double> tbcEValue;
+	@FXML private TableColumn<CategorySummary, Double> tbcJan;
+	@FXML private TableColumn<CategorySummary, Double> tbcFeb;
+	@FXML private TableColumn<CategorySummary, Double> tbcMar;
+	@FXML private TableColumn<CategorySummary, Double> tbcApr;
+	@FXML private TableColumn<CategorySummary, Double> tbcMay;
+	@FXML private TableColumn<CategorySummary, Double> tbcJun;
+	@FXML private TableColumn<CategorySummary, Double> tbcJul;
+	@FXML private TableColumn<CategorySummary, Double> tbcAug;
+	@FXML private TableColumn<CategorySummary, Double> tbcSep;
+	@FXML private TableColumn<CategorySummary, Double> tbcOct;
+	@FXML private TableColumn<CategorySummary, Double> tbcNov;
+	@FXML private TableColumn<CategorySummary, Double> tbcDec;
+	@FXML private TableColumn<CategorySummary, Double> tbcTotal;
+	@FXML private TableView<CategorySummary> tblYearSummaryDep;
+	@FXML private TableColumn<CategorySummary, String> tbcCodeDep;
+	@FXML private TableColumn<CategorySummary, String> tbcCategoryDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcEValueDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcJanDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcFebDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcMarDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcAprDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcMayDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcJunDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcJulDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcAugDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcSepDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcOctDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcNovDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcDecDep;
+	@FXML private TableColumn<CategorySummary, Double> tbcTotalDep;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

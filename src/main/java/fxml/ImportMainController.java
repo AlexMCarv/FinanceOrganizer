@@ -30,6 +30,7 @@ import parsers.ParseScotiaCreditCard;
 public class ImportMainController {
 
     @FXML private Tab tabValid;
+    @FXML private Tab tabInvalid;
     
     /* Reminder: the variable name for the injected controller is the
      * id defined in the <fx: include fx:id="..."> appended by Controller. 
@@ -38,6 +39,8 @@ public class ImportMainController {
      * the variable name is validTransController.
      */
     @FXML private ImportValidTransController validTransController;
+    @FXML private ImportInvalidTransController invalidTransController;
+    
 	@FXML private ListView<String> txtOwnerList;
 	@FXML private ListView<String> txtAccountList;
 	@FXML private ListView<String> txtValidTransactions;
@@ -67,6 +70,7 @@ public class ImportMainController {
 		btnSearch.setOnAction(this::selectFile);
 		btnCancel.setOnAction(this::formCloseWindow);
 		tabValid.setDisable(true);
+		tabInvalid.setDisable(true);
 		
 		accountList = SQLQueries.retrieveAccountFromDB();
 		txtOwnerList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -163,8 +167,10 @@ public class ImportMainController {
 		List<String> invalidList = parseBankFile.printInvalidTransactions();
 		
 		validTransController.setTxtValidTransactions(validList);
-		txtInvalidTransactions.setItems(FXCollections.observableList(invalidList));
+		invalidTransController.setTxtInvalidTransactions(invalidList);
+		
 		tabValid.setDisable(false);
+		tabInvalid.setDisable(false);
 	}
 	
 	/**
