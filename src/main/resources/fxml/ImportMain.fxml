@@ -36,11 +36,5 @@
             </AnchorPane>
          </content>
       </Tab>
-	  <Tab fx:id="tabInvalid" text="Invalid Transactions">
-	  	<fx:include fx:id="invalidTrans" source="ImportInvalidTrans.fxml" />
-	  </Tab>
-	  <Tab fx:id="tabValid" text="Valid Transactions">
-	  	<fx:include fx:id="validTrans" source="ImportValidTrans.fxml" />
-	  </Tab>
    </tabs>
 </TabPane>

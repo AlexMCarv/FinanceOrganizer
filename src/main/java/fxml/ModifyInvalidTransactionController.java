@@ -37,6 +37,7 @@ public class ModifyInvalidTransactionController implements javafx.fxml.Initializ
 	@FXML private Button btnCancel;
 	private int index;
 	private String rawData;
+	private static ImportInvalidTransController parentController;
 
 	public ModifyInvalidTransactionController() {}
 	
@@ -54,7 +55,7 @@ public class ModifyInvalidTransactionController implements javafx.fxml.Initializ
 		String[] list = {"Withdraw","Deposit"};
 		txbType.setItems(FXCollections.observableList(Arrays.asList(list)));
 		
-		btnModify.setOnAction(this::populateTransactionList);
+		btnModify.setOnAction(this::modifyTransaction);
 		btnCancel.setOnAction(this::formCloseWindow);
 
 	}
@@ -62,16 +63,20 @@ public class ModifyInvalidTransactionController implements javafx.fxml.Initializ
 	/**
 	 * Add a new code/name of category to the database
 	 */
-	private void populateTransactionList(ActionEvent event) {
+	private void modifyTransaction(ActionEvent event) {
 		
-		
-		LocalDate date = txbDate.getValue();
-		String description = txtDescription.getText();
-		System.out.println(index + "");
-			
+		String[] transaction = new String[5];
+								
 		try {
-			Double value = Double.parseDouble(txtValue.getText());
-
+			transaction[0] = index + "";
+			transaction[1] = txbDate.getValue().toString();
+			transaction[2] = txtDescription.getText();
+			transaction[3] = txtValue.getText();
+			transaction[4] = txbType.getSelectionModel().getSelectedItem();
+			parentController.setReturnValue(transaction);
+			formCloseWindow(event);
+			parentController.updateWindow();
+			
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			
@@ -79,6 +84,8 @@ public class ModifyInvalidTransactionController implements javafx.fxml.Initializ
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
+
 	}
 	
 	/**
@@ -89,4 +96,8 @@ public class ModifyInvalidTransactionController implements javafx.fxml.Initializ
 	    stage.close();
 	}
 	
+		 
+	public static void injectBuilderController(ImportInvalidTransController parentContr){
+		parentController = parentContr;
+	}
 }

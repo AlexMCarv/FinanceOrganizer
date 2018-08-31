@@ -28,6 +28,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class YearlySummaryController implements javafx.fxml.Initializable{
@@ -364,8 +365,9 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				controller.init();
 				
 				newStage.setScene(scene);
+				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
-				newStage.show();
+				newStage.showAndWait();
 			
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block

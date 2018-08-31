@@ -15,12 +15,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import parsers.BankFileParser;
 import parsers.ParsePresidentChoice;
@@ -29,18 +32,6 @@ import parsers.ParseScotiaCreditCard;
 
 public class ImportMainController {
 
-    @FXML private Tab tabValid;
-    @FXML private Tab tabInvalid;
-    
-    /* Reminder: the variable name for the injected controller is the
-     * id defined in the <fx: include fx:id="..."> appended by Controller. 
-     * Therefore for this controller, which has an id: validTrans
-     * <fx:include fx:id="validTrans" source="ImportValidTrans.fxml" />
-     * the variable name is validTransController.
-     */
-    @FXML private ImportValidTransController validTransController;
-    @FXML private ImportInvalidTransController invalidTransController;
-    
 	@FXML private ListView<String> txtOwnerList;
 	@FXML private ListView<String> txtAccountList;
 	@FXML private ListView<String> txtValidTransactions;
@@ -69,9 +60,7 @@ public class ImportMainController {
 		btnRead.setOnAction(this::readFromFile);
 		btnSearch.setOnAction(this::selectFile);
 		btnCancel.setOnAction(this::formCloseWindow);
-		tabValid.setDisable(true);
-		tabInvalid.setDisable(true);
-		
+				
 		accountList = SQLQueries.retrieveAccountFromDB();
 		txtOwnerList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	        @Override
@@ -163,14 +152,24 @@ public class ImportMainController {
 			e.printStackTrace();
 		}
 		
-		List<String> validList = parseBankFile.printTransactions();
-		List<String> invalidList = parseBankFile.printInvalidTransactions();
+		// Passes the imported list to the reviewer window and displays it.
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/ImportInvalidTrans.fxml"));
+			Scene scene = new Scene(loader.load(),1100,390);
+			Stage newStage = new Stage();
+			ImportInvalidTransController controller = loader.getController();
+			controller.initialize(parseBankFile);
+			
+			newStage.setScene(scene);
+			newStage.initModality(Modality.APPLICATION_MODAL);
+			//stage.sizeToScene();
+			newStage.showAndWait();
 		
-		validTransController.setTxtValidTransactions(validList);
-		invalidTransController.setTxtInvalidTransactions(invalidList);
-		
-		tabValid.setDisable(false);
-		tabInvalid.setDisable(false);
+		} catch (IOException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
 	
 	/**
