@@ -17,24 +17,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SearchCategoryController implements javafx.fxml.Initializable{
 
-	@FXML
-	private DatePicker txbDateFrom;
-	@FXML
-	private DatePicker txbDateTo;
-	@FXML
-	private ComboBox<String> cmbCategory;
-	@FXML
-	private Button btnSearch;
-	@FXML
-	private ListView<String> txtTransList;
-	@FXML
-	private PieChart graph;
-	@FXML
-	private TableView<SimpleTransaction> tblTransaction;
-	@FXML
-	private TableColumn<SimpleTransaction, String> tbcDescription;
-	@FXML
-	private TableColumn<SimpleTransaction, Double> tbcValue;
+	@FXML private DatePicker txbDateFrom;
+	@FXML private DatePicker txbDateTo;
+	@FXML private ComboBox<String> cmbCategory;
+	@FXML private Button btnSearch;
+	@FXML private ListView<String> txtTransList;
+	@FXML private PieChart graph;
+	@FXML private TableView<SimpleTransaction> tblTransaction;
+	@FXML private TableColumn<SimpleTransaction, String> tbcDescription;
+	@FXML private TableColumn<SimpleTransaction, Double> tbcValue;
 	
 
 	@Override

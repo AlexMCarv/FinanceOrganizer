@@ -31,7 +31,7 @@
                   <TextField fx:id="txtFileLocation" layoutX="23.0" layoutY="39.0" prefHeight="25.0" prefWidth="365.0" />
                   <Label layoutX="24.0" layoutY="17.0" text="Import File Location" />
                   <Button fx:id="btnRead" layoutX="130.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Read From File" />
-                  <Button fx:id="btnCancel" layoutX="261.0" layoutY="254.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="btnClose" layoutX="261.0" layoutY="254.0" mnemonicParsing="false" text="Close" />
                </children>
             </AnchorPane>
          </content>

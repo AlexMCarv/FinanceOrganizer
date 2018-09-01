@@ -377,7 +377,54 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 		});
 		TreeItem<Button> itemImport = new TreeItem<>(btnImport);
 		
-		rootItem.getChildren().addAll(itemReport, itemTransactions, itemImport);
+		// Category
+				Button btnCategory = new Button("Category Manager");
+				TreeItem<Button> itemCategory = new TreeItem<>(btnCategory);
+				Button btnNewCategory = new Button("Add New Category");
+				btnNewCategory.setOnAction(e -> {
+					try {
+						
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource("/fxml/AddCategory.fxml"));
+						loader.setController(new AddCategoryController());
+						Scene scene = new Scene(loader.load(),900,450);
+						Stage newStage = new Stage();
+						
+						newStage.setScene(scene);
+						newStage.show();
+					
+					} catch (IOException ex) {
+						// TODO Auto-generated catch block
+						ex.printStackTrace();
+					}
+
+				});
+				TreeItem<Button> itemNewCategory = new TreeItem<>(btnNewCategory);
+				
+				Button btnUpdate = new Button("Update Uncategorized Items");
+				btnUpdate.setOnAction(e -> {
+					try {
+						
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource("/fxml/UpdateUncategorized.fxml"));
+						Scene scene = new Scene(loader.load(),900,450);
+						Stage newStage = new Stage();
+						
+						newStage.setScene(scene);
+						newStage.show();
+					
+					} catch (IOException ex) {
+						// TODO Auto-generated catch block
+						ex.printStackTrace();
+					}
+
+				});
+				TreeItem<Button> itemUpdate = new TreeItem<>(btnUpdate);
+				
+				itemCategory.getChildren().addAll(itemNewCategory, itemUpdate);
+		
+		
+		rootItem.getChildren().addAll(itemReport, itemTransactions, itemImport, itemCategory);
 		tblSideMenu.setRoot(rootItem);
 		tblSideMenu.setShowRoot(false);
 		tblSideMenu.setCellFactory(e -> new SideMenuCell());

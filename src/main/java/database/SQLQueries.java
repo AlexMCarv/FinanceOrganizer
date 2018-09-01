@@ -343,6 +343,46 @@ public class SQLQueries {
 		
 	} // End of showTransByCatAndDate()
 	
+	public static ObservableList<DetailedTransaction> showAllTransByCategory(String category){
+		Connection conn = null;
+		CallableStatement stmt = null;
+		ResultSet rset = null;
+		List<DetailedTransaction> list = new ArrayList<DetailedTransaction>();
+				
+		try {
+			conn = MySQLConnection.createConnection();
+			String query = "{call showAllTransByCategory(?)}";
+			stmt = conn.prepareCall(query); // intensive
+			stmt.setString(1, category);
+			rset = stmt.executeQuery();
+			
+			while (rset.next()) {
+				list.add(new DetailedTransaction(rset.getDate(1).toLocalDate(), rset.getString(2), 
+						rset.getString(3), rset.getDouble(4), rset.getString(5).charAt(0)));
+            }
+            			
+			
+		} catch (Exception ex) {
+			 System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (rset!= null)
+					rset.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+		
+		return FXCollections.observableList(list);
+		
+	} // End of showAllTransByCategory()
+	
 	public static ObservableList<DetailedTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate, String category){
 		Connection conn = null;
 		CallableStatement stmt = null;
@@ -470,5 +510,92 @@ public class SQLQueries {
 		return new int[] {successful, unsuccessful} ;
 
 	} //End of importToDB()
+	
+	public static void updateCategory(LocalDate date, String description, Double value, char type, String categoryCode, String newCategory){
+		
+		CallableStatement stmt = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = MySQLConnection.createConnection();
+			String query = "{call updateCategory(?,?,?,?,?,?)}";
+			
+			stmt = conn.prepareCall(query); // intensive
+			stmt.setDate(1, Date.valueOf(date));
+			stmt.setString(2, description);
+			stmt.setDouble(3, value);
+			stmt.setString(4, String.valueOf(type));
+			stmt.setString(5, categoryCode);
+			stmt.setString(6, newCategory);
+			
+			stmt.executeQuery();
+			
+		} catch (SQLException ex) {
+			if (ex.getErrorCode() == 1062)
+				System.out.println("Error: Category CODE already exists.");
+			if (ex.getErrorCode() == 1406)
+				System.out.println("Error: Category CODE must be at 3 characters long");
+			System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+	
+	} // End of updateCategory() 
+	
+	public static void autoUpdateCategory(LocalDate date, String description, Double value, char type, String categoryCode){
+		
+		CallableStatement stmt = null;
+		Connection conn = null;
+		ResultSet rset = null;
+		String mostCommonCategory = "ZZZ";
+		
+		try {
+			
+			conn = MySQLConnection.createConnection();
+			String query = "{call getMostCommonCategory(?,?)}";
+			
+			stmt = conn.prepareCall(query); // intensive
+			stmt.setString(1, description);
+			stmt.setString(2, String.valueOf(type));
+			rset = stmt.executeQuery();
+						
+			if (rset != null) {				
+				rset.next();
+				mostCommonCategory = rset.getString(1);
+			}
+			           
+			
+		} catch (SQLException ex) {
+			if (ex.getErrorCode() == 1062)
+				System.out.println("Error: Category CODE already exists.");
+			if (ex.getErrorCode() == 1406)
+				System.out.println("Error: Category CODE must be at 3 characters long");
+			System.out.println(ex.getMessage());
+	    
+		} finally {
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		} //End of Try/Catch/Finally Block
+	
+		updateCategory(date, description, value, type, categoryCode, mostCommonCategory);
+		
+	} // End of updateCategory() 
 	
 } // End of SQLQueries Class

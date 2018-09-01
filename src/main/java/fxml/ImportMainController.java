@@ -34,7 +34,7 @@ public class ImportMainController {
 	@FXML private ListView<String> txtInvalidTransactions;
 	@FXML private TextField txtFileLocation;
 	@FXML private Button btnRead;
-	@FXML private Button btnCancel;
+	@FXML private Button btnClose;
 	@FXML private Button btnSearch;
 	@FXML private Button btnConfirm;
 	
@@ -55,7 +55,7 @@ public class ImportMainController {
 	public void init() {
 		btnRead.setOnAction(this::readFromFile);
 		btnSearch.setOnAction(this::selectFile);
-		btnCancel.setOnAction(this::formCloseWindow);
+		btnClose.setOnAction(this::formCloseWindow);
 				
 		accountList = SQLQueries.retrieveAccountFromDB();
 		txtOwnerList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -118,7 +118,7 @@ public class ImportMainController {
 	 */
 	private void selectFile(ActionEvent event) {
 		
-		FileSelect fileSelector = new FileSelect((Stage) btnCancel.getScene().getWindow());
+		FileSelect fileSelector = new FileSelect((Stage) btnClose.getScene().getWindow());
 		fileToImport = fileSelector.getFile();
 		txtFileLocation.setText(fileToImport.getAbsolutePath());
 	}
@@ -172,7 +172,7 @@ public class ImportMainController {
 	 * Closes the Import.fxml window
 	 */
 	private void formCloseWindow(ActionEvent event) {
-		Stage stage = (Stage) btnCancel.getScene().getWindow();
+		Stage stage = (Stage) btnClose.getScene().getWindow();
 	    stage.close();
 	}
 
