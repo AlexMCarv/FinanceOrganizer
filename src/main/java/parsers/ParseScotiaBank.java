@@ -40,7 +40,7 @@ public class ParseScotiaBank extends BankFileParser{
 				
 				value[i] = Math.abs(Double.parseDouble(transaction[1]));
 				
-				if (transaction[4] == "" || transaction[4] == null) {
+				if (transaction[4].equals("")) {
 					description[i] = transaction[3];
 				} else {
 					description[i] = transaction[4];

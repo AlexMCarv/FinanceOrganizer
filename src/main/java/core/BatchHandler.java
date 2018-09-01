@@ -111,8 +111,8 @@ public class BatchHandler extends TransactionHandler {
 				stmt.setString(2, transaction.getDescription());
 				stmt.setDouble(3, transaction.getValue());
 				stmt.setString(4, transaction.getType() + "");
-				//Sets account_id to 3, which represents Common
-				stmt.setInt(5, 3);
+				//Sets account_id to 10, which represents Common
+				stmt.setInt(5, 10);
 				stmt.setString(6, transaction.getCategory());
 				// Sets fdescription_id to 0, which represents Undefined
 				stmt.setInt(7, 0);

@@ -15,6 +15,7 @@ abstract public class BankFileParser {
 	protected char[] type;
 	protected List<Integer> invalidTransactions;
 	protected List<String[]> rawData;
+	protected int accountID;
 	
 	public LocalDate[] getDate(){
 		return date;
@@ -30,6 +31,14 @@ abstract public class BankFileParser {
 	
 	public char[] getType(){
 		return type;
+	}
+	
+	public int getAccountID(){
+		return accountID;
+	}
+	
+	public void setAccountID(int accountID){
+		this.accountID = accountID;
 	}
 	
 	/**

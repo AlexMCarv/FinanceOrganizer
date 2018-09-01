@@ -2,10 +2,8 @@ package fxml;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import core.FileSelect;
 import database.SQLQueries;
@@ -19,10 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import parsers.BankFileParser;
@@ -159,7 +155,7 @@ public class ImportMainController {
 			Scene scene = new Scene(loader.load(),1100,390);
 			Stage newStage = new Stage();
 			ImportInvalidTransController controller = loader.getController();
-			controller.initialize(parseBankFile);
+			controller.initialize(parseBankFile, selectedAccountToImport);
 			
 			newStage.setScene(scene);
 			newStage.initModality(Modality.APPLICATION_MODAL);

@@ -3,8 +3,13 @@ package fxml;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+
+import database.SQLQueries;
+import datatype.Transaction;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,13 +32,15 @@ public class ImportInvalidTransController {
     */
     
 	BankFileParser parseBankFile;
+	int accountToImport;
 	String[] returnValue;
 	@FXML private ListView<String> txtInvalidTransactions;
 	@FXML private ListView<String> txtValidTransactions;
 	@FXML private Button btnConfirm;
 		
-	public void initialize(BankFileParser parseBankFile) {
+	public void initialize(BankFileParser parseBankFile, int accountToImport) {
 		this.parseBankFile = parseBankFile;
+		this.accountToImport = accountToImport;
 		List<String> validList = parseBankFile.printTransactions();
 		List<String> invalidList = parseBankFile.printInvalidTransactions();
 		
@@ -41,6 +48,7 @@ public class ImportInvalidTransController {
 		txtInvalidTransactions.setOnMouseClicked(this::clickItem);
 		populateList(txtValidTransactions, validList);
 		ModifyInvalidTransactionController.injectBuilderController(this);
+		btnConfirm.setOnAction(this::importToDB);
 	}
 	
 	/**
@@ -101,5 +109,26 @@ public class ImportInvalidTransController {
 		parseBankFile.updateInvalidTransaction(index, newDate, newDescription, newValue, newType);
 		populateList(txtInvalidTransactions, parseBankFile.printInvalidTransactions());
 		populateList(txtValidTransactions, parseBankFile.printTransactions());
+	}
+	
+	public void importToDB(ActionEvent event) {
+		
+		List<Transaction> list = new ArrayList<>();
+		
+		for(int i = 0; i < parseBankFile.getDescription().length; i++){
+			
+			Transaction transaction = new Transaction(parseBankFile.getDate()[i],
+													  parseBankFile.getValue()[i],
+													  parseBankFile.getType()[i],
+													  parseBankFile.getDescription()[i],
+													  "ZZZ");
+			list.add(transaction);
+		}		
+		
+		int[] returnLog = SQLQueries.importToDB(list, accountToImport);
+		System.out.println("A total of " + returnLog[0] + "transactions were added successfully");
+		System.out.println("and " + returnLog[1] + "transactions were either duplicates or had an error");
+		Stage stage = (Stage) btnConfirm.getScene().getWindow();
+	    stage.close();
 	}
 }

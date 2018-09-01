@@ -139,7 +139,6 @@ public class SQLQueries {
 		
 	} // End of retrieveAccountFromDB() 
 
-
 	public static ObservableList<Integer> listYears(){
 		Connection conn = null;
 		CallableStatement stmt = null;
@@ -221,7 +220,6 @@ public class SQLQueries {
 		return FXCollections.observableList(list);
 		
 	} // End of showCategory() 
-	
 	
 	public static ObservableList<CategorySummary> showYearlySummmary(int year, char type){
 		Connection conn = null;
@@ -345,7 +343,6 @@ public class SQLQueries {
 		
 	} // End of showTransByCatAndDate()
 	
-	
 	public static ObservableList<DetailedTransaction> showTransByDateRange(LocalDate fromDate, LocalDate toDate, String category){
 		Connection conn = null;
 		CallableStatement stmt = null;
@@ -397,4 +394,81 @@ public class SQLQueries {
 		
 	} // End of showTransByDateRange()
 
+	public static int[] importToDB(List<Transaction> list, int accountID){
+		
+		CallableStatement stmt = null;
+		Connection conn = null;
+		int successful = 0;
+		int unsuccessful = 0;
+		
+		try {
+			conn = MySQLConnection.createConnection();
+		
+			// Table fields:
+			// bank_transaction (trans_date, trans_description, 
+			//                   trans_value, trans_type, account_id, 
+			//                   category_id, fdescription_id)
+			String query = "{call addToTransaction(?,?,?,?,?,?,?)}";
+			
+			stmt = conn.prepareCall(query); // intensive
+			
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		
+			try {
+				if (stmt!= null)
+					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+		}
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			try {
+				
+				Transaction transaction = list.get(i);
+				
+				// Preparing the statement
+				stmt.setDate(1, Date.valueOf(transaction.getDate()));
+				stmt.setString(2, transaction.getDescription());
+				stmt.setDouble(3, transaction.getValue());
+				stmt.setString(4, transaction.getType() + "");
+				stmt.setInt(5, accountID);
+				stmt.setString(6, transaction.getCategory());
+				// Sets fdescription_id to 0, which represents Undefined
+				stmt.setInt(7, 0);
+					
+				stmt.executeQuery();
+				successful++;
+			
+			//***** TO-DO - update error codes *****
+			} catch (SQLException ex) {
+				if (ex.getErrorCode() == 1062)
+					System.out.println("Error: Category CODE already exists.");
+				if (ex.getErrorCode() == 1406)
+					System.out.println("Error: Category CODE must be at 3 characters long.");
+				System.out.println(ex.getMessage());
+				unsuccessful++;
+
+			} //End of Try/Catch Block
+		
+		} // End of for loop for data
+		
+		try {
+			if (stmt!= null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} //End of Try/Catch Block
+		
+		return new int[] {successful, unsuccessful} ;
+
+	} //End of importToDB()
+	
 } // End of SQLQueries Class
