@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import database.SQLQueries;
 import datatype.SimpleTransaction;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -58,7 +59,6 @@ public class SelectCategoryController implements javafx.fxml.Initializable{
 		
 		if (newCategory != "") {
 			SQLQueries.updateCategory(date, description, value, type, categoryCode, newCategory);
-			System.out.println("updating");
 		}
 		formCloseWindow(event);
 	}

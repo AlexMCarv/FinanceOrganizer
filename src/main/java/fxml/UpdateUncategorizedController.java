@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class UpdateUncategorizedController implements javafx.fxml.Initializable{
@@ -24,6 +25,7 @@ public class UpdateUncategorizedController implements javafx.fxml.Initializable{
 	@FXML private TableView<DetailedTransaction> tblTransaction;
 	@FXML private TableColumn<DetailedTransaction, LocalDate> tbcDate;
 	@FXML private TableColumn<DetailedTransaction, String> tbcCategory;
+	@FXML private TableColumn<DetailedTransaction, Character> tbcType;
 	@FXML private TableColumn<DetailedTransaction, String> tbcDescription;
 	@FXML private TableColumn<DetailedTransaction, Double> tbcValue;
 	private final String CATEGORY = "ZZZ";
@@ -37,6 +39,8 @@ public class UpdateUncategorizedController implements javafx.fxml.Initializable{
 		btnClose.setOnAction(this::formCloseWindow);
 		tbcDate.setCellValueFactory(
 			    new PropertyValueFactory<DetailedTransaction, LocalDate>("date"));
+		tbcType.setCellValueFactory(
+			    new PropertyValueFactory<DetailedTransaction, Character>("type"));
 		tbcCategory.setCellValueFactory(
 			    new PropertyValueFactory<DetailedTransaction, String>("category"));
 		tbcDescription.setCellValueFactory(
@@ -57,6 +61,11 @@ public class UpdateUncategorizedController implements javafx.fxml.Initializable{
 		}
 	}
 	
+	/**
+	 * Enable manual update of the category of the double-clicked transaction. 
+	 * It opens up a new window to manually select a category.
+	 * @param event catches a double-click on the list
+	 */
 	@FXML
 	public void clickItem(MouseEvent event)
 	{
@@ -75,16 +84,16 @@ public class UpdateUncategorizedController implements javafx.fxml.Initializable{
 				loader.setController(new SelectCategoryController(date, description, value, type, categoryCode));
 				Scene scene = new Scene(loader.load(),900,450);
 				Stage newStage = new Stage();
+				newStage.setOnHiding(windowEvent -> populateTransactionList());
 				
 				newStage.setScene(scene);
+				newStage.initModality(Modality.APPLICATION_MODAL);
 				newStage.show();
 			
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
-	        
-	        populateTransactionList();
 	    }
 	}
 	
