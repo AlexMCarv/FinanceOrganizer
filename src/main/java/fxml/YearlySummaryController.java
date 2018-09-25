@@ -275,6 +275,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				Stage newStage = new Stage();
 				
 				newStage.setScene(scene);
+				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
 				newStage.show();
 			
@@ -317,6 +318,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				Stage newStage = new Stage();
 				
 				newStage.setScene(scene);
+				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
 				newStage.show();
 			
@@ -337,7 +339,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				loader.setController(new SearchByDateController());
 				Scene scene = new Scene(loader.load(),900,450);
 				Stage newStage = new Stage();
-				
+				newStage.initModality(Modality.APPLICATION_MODAL);
 				newStage.setScene(scene);
 				//stage.sizeToScene();
 				newStage.show();
@@ -359,12 +361,13 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/fxml/ImportMain.fxml"));
-				Scene scene = new Scene(loader.load(),1100,390);
+				Scene scene = new Scene(loader.load(),490,300);
 				Stage newStage = new Stage();
 				ImportMainController controller = loader.getController();
 				controller.init();
 				
 				newStage.setScene(scene);
+				newStage.setTitle("Import Transactions - File Selection");
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
 				newStage.showAndWait();
@@ -387,9 +390,11 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("/fxml/AddCategory.fxml"));
 						loader.setController(new AddCategoryController());
-						Scene scene = new Scene(loader.load(),900,450);
-						Stage newStage = new Stage();
+						Scene scene = new Scene(loader.load(),430,270);
 						
+						Stage newStage = new Stage();
+						newStage.setTitle("Add New Category");
+						newStage.initModality(Modality.APPLICATION_MODAL);
 						newStage.setScene(scene);
 						newStage.show();
 					
@@ -407,9 +412,10 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("/fxml/UpdateUncategorized.fxml"));
-						Scene scene = new Scene(loader.load(),900,450);
+						Scene scene = new Scene(loader.load(),680,480);
 						Stage newStage = new Stage();
-						
+						newStage.setTitle("Uncategorized Transactions");
+						newStage.initModality(Modality.APPLICATION_MODAL);
 						newStage.setScene(scene);
 						newStage.show();
 					

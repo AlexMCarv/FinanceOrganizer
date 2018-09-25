@@ -82,12 +82,13 @@ public class UpdateUncategorizedController implements javafx.fxml.Initializable{
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/fxml/SelectCategory.fxml"));
 				loader.setController(new SelectCategoryController(date, description, value, type, categoryCode));
-				Scene scene = new Scene(loader.load(),900,450);
+				Scene scene = new Scene(loader.load(),300,100);
 				Stage newStage = new Stage();
 				newStage.setOnHiding(windowEvent -> populateTransactionList());
 				
 				newStage.setScene(scene);
 				newStage.initModality(Modality.APPLICATION_MODAL);
+				newStage.setTitle("Edit Category");
 				newStage.show();
 			
 			} catch (IOException ex) {

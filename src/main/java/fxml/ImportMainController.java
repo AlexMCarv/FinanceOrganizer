@@ -152,13 +152,14 @@ public class ImportMainController {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/ImportInvalidTrans.fxml"));
-			Scene scene = new Scene(loader.load(),1100,390);
+			Scene scene = new Scene(loader.load(),960,400);
 			Stage newStage = new Stage();
 			ImportInvalidTransController controller = loader.getController();
 			controller.initialize(parseBankFile, selectedAccountToImport);
 			
 			newStage.setScene(scene);
 			newStage.initModality(Modality.APPLICATION_MODAL);
+			newStage.setTitle("Import Transactions - Import Confirmation");
 			//stage.sizeToScene();
 			newStage.showAndWait();
 		

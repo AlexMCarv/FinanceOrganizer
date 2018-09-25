@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="paneAddCategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="paneAddCategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnAdd" layoutX="56.0" layoutY="167.0" mnemonicParsing="false" text="Add" />
-      <TextField fx:id="txtCode" layoutX="34.0" layoutY="65.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtName" layoutX="34.0" layoutY="128.0" />
-      <Label fx:id="lblCode" layoutX="35.0" layoutY="41.0" text="Category Code" />
-      <Label fx:id="lblName" layoutX="34.0" layoutY="102.0" text="Category Name" />
-      <Button fx:id="btnCancel" layoutX="108.0" layoutY="167.0" mnemonicParsing="false" text="Close" />
-      <ListView fx:id="txtCategoryList" layoutX="207.0" layoutY="19.0" prefHeight="214.0" prefWidth="200.0" />
+      <Button fx:id="btnAdd" layoutX="86.0" layoutY="95.0" mnemonicParsing="false" text="Add Category" />
+      <TextField fx:id="txtCode" layoutX="15.0" layoutY="95.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtName" layoutX="15.0" layoutY="45.0" prefHeight="25.0" prefWidth="160.0" />
+      <Label fx:id="lblCode" layoutX="15.0" layoutY="75.0" text="Code" />
+      <Label fx:id="lblName" layoutX="15.0" layoutY="25.0" text="Category Name" />
+      <Button fx:id="btnCancel" layoutX="60.0" layoutY="230.0" mnemonicParsing="false" text="Close Window" />
+      <ListView fx:id="txtCategoryList" layoutX="215.0" layoutY="35.0" prefHeight="220.0" prefWidth="200.0" />
+      <Label layoutX="215.0" layoutY="15.0" text="List of Categories " />
    </children>
 </Pane>
