@@ -9,11 +9,11 @@ This is a Java application that imports bank statements and displays the bank tr
 
 The summary of all transactions is displayed in a table format and organized by categories
 
-![ImportData](./imgs/summary.png?raw=true)
+![ImportData](./imgs/yearsummary.png?raw=true)
 
 By double clicking a cell in the table, it brings the summary of the selected category/month
 
-![ImportData](./imgs/ByCatAndDateRange.PNG?raw=true)
+![ImportData](./imgs/listtrans.PNG?raw=true)
 
 ### Search by Date Range
 
@@ -25,14 +25,14 @@ Transactions can also be displayed by a selected date range
 
 The categories used to classify the data can be customized
 
-![ImportData](./imgs/AddCategory.PNG?raw=true)
+![ImportData](./imgs/addcategory.PNG?raw=true)
 
 ### Importing Data
 
 Most banks provide bank statements in csv format. 
 The application parses the file, based on the select account and imports the data to the database.
 
-![ImportData](./imgs/import.PNG?raw=true)
+![ImportData](./imgs/importfile.PNG?raw=true)
 
 A summary of the parsed data is diplayed, and any transactions with errors can be manually edited.
 
