@@ -13,7 +13,7 @@ The summary of all transactions is displayed in a table format and organized by 
 
 By double clicking a cell in the table, it brings the summary of the selected category/month
 
-![ImportData](./imgs/listtrans.PNG?raw=true)
+![ImportData](./imgs/sumarymonth.PNG?raw=true)
 
 ### Search by Date Range
 
