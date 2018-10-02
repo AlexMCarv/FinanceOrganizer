@@ -144,6 +144,7 @@ public class ApplicationGUI extends VBox{
 			scene.getStylesheets().add("application.css");
 			
 			newStage.setScene(scene);
+			newStage.setTitle("Personal Finance Organizer");
 			//stage.sizeToScene();
 			newStage.show();
 		

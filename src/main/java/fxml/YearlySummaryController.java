@@ -271,10 +271,11 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/fxml/SearchByDate.fxml"));
 				loader.setController(new SearchByDateController(month, year, categoryCode));
-				Scene scene = new Scene(loader.load(),900,450);
+				Scene scene = new Scene(loader.load(),600,450);
 				Stage newStage = new Stage();
 				
 				newStage.setScene(scene);
+				newStage.setTitle("Summary for month: " + month + " - category: " + categoryCode);
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
 				newStage.show();
@@ -318,6 +319,7 @@ public class YearlySummaryController implements javafx.fxml.Initializable{
 				Stage newStage = new Stage();
 				
 				newStage.setScene(scene);
+				newStage.setTitle("List Transactions by Category and Date");
 				newStage.initModality(Modality.APPLICATION_MODAL);
 				//stage.sizeToScene();
 				newStage.show();
