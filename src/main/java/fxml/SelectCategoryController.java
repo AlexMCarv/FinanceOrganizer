@@ -3,18 +3,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import database.SQLQueries;
-import datatype.SimpleTransaction;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class SelectCategoryController implements javafx.fxml.Initializable{

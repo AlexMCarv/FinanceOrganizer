@@ -2,7 +2,6 @@ package datatype;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
-import javafx.scene.input.MouseEvent;
 
 public class DoubleTableCell extends TableCell<CategorySummary,Double>{
 
